@@ -24,8 +24,8 @@ export function PortfolioFilter({ locale }: { locale: Locale }) {
             type="button"
             onClick={() => setActive(cat)}
             className={cn(
-              "border-3 border-ink bg-paper px-[18px] py-2.5 font-mono text-[13px] font-bold uppercase tracking-[0.06em] shadow-[3px_3px_0_#141210] transition-[transform,box-shadow] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_#141210]",
-              active === cat && "bg-ink text-white"
+              "border-3 border-ink px-[18px] py-2.5 font-mono text-[13px] font-bold uppercase tracking-[0.06em] shadow-[3px_3px_0_#141210] transition-[transform,box-shadow] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_#141210]",
+              active === cat ? "bg-ink text-white" : "bg-paper text-ink"
             )}
           >
             {cat === "all" ? allLabel : categoryLabels[locale][cat]}

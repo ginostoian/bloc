@@ -47,7 +47,7 @@ body {
   }
 
   .display {
-    @apply font-display font-normal uppercase leading-[0.92] tracking-[-0.01em];
+    @apply font-display font-normal uppercase leading-[1.12] tracking-[-0.01em];
   }
 
   .eyebrow {

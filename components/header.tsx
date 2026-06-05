@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
-import { copy } from "@/lib/content";
+import { copy, serviceColors, services } from "@/lib/content";
 import { Locale, otherLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { NbButton } from "./primitives";
@@ -18,6 +18,7 @@ const navItems = [
 
 export function Header({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const pathname = usePathname();
   const t = copy[locale].nav;
   const alt = otherLocale(locale);
@@ -39,13 +40,69 @@ export function Header({ locale }: { locale: Locale }) {
           {navItems.map((item) => {
             const href = `/${locale}${item.href ? `/${item.href}` : ""}`;
             const active = item.href === "" ? pathname === `/${locale}` : pathname.startsWith(href);
+            if (item.key === "services") {
+              return (
+                <div
+                  key={item.key}
+                  className="relative"
+                  onMouseEnter={() => setServicesOpen(true)}
+                  onMouseLeave={() => setServicesOpen(false)}
+                >
+                  <Link
+                    href={href}
+                    onClick={() => setServicesOpen(false)}
+                    onFocus={() => setServicesOpen(true)}
+                    className={cn(
+                      "inline-flex items-center gap-1 border-2 px-3.5 py-2 text-[15px] font-semibold no-underline transition-colors",
+                      active
+                        ? "border-ink bg-ink text-white hover:bg-ink hover:text-white"
+                        : "border-transparent bg-transparent text-ink hover:border-ink hover:bg-paper"
+                    )}
+                  >
+                    {t[item.key]} <span className="font-mono text-[11px]">↓</span>
+                  </Link>
+
+                  {servicesOpen ? (
+                    <div className="absolute left-0 top-full z-50 w-[380px] pt-2.5">
+                      <div className="border-3 border-ink bg-paper shadow-nb">
+                        <div className="border-b-2 border-ink bg-cream px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-mono text-[#6b655d]">
+                          {locale === "ro" ? "Alege serviciul" : "Choose service"}
+                        </div>
+                        <div>
+                          {services[locale].map((service, index) => (
+                            <Link
+                              key={service.key}
+                              href={`/${locale}/servicii#${service.key}`}
+                              onClick={() => setServicesOpen(false)}
+                              className="group grid grid-cols-[42px_1fr] gap-3 border-b-2 border-ink px-4 py-3 text-ink no-underline transition-colors last:border-b-0 hover:bg-orange hover:text-white"
+                            >
+                              <span className={cn("grid h-8 w-8 place-items-center border-2 border-ink font-display text-[18px]", serviceColors[service.key])}>
+                                {String(index + 1).padStart(2, "0")}
+                              </span>
+                              <span>
+                                <span className="block font-display text-xl uppercase leading-tight">{service.title}</span>
+                                <span className="mt-0.5 block text-[13px] leading-snug text-[#5c564e] group-hover:text-white/90">
+                                  {service.short}
+                                </span>
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              );
+            }
             return (
               <Link
                 key={item.key}
                 href={href}
                 className={cn(
-                  "border-2 border-transparent px-3.5 py-2 text-[15px] font-semibold text-ink no-underline transition-colors hover:border-ink hover:bg-paper",
-                  active && "border-ink bg-ink text-white hover:bg-ink hover:text-white"
+                  "border-2 px-3.5 py-2 text-[15px] font-semibold no-underline transition-colors",
+                  active
+                    ? "border-ink bg-ink text-white hover:bg-ink hover:text-white"
+                    : "border-transparent bg-transparent text-ink hover:border-ink hover:bg-paper"
                 )}
               >
                 {t[item.key]}
@@ -78,16 +135,46 @@ export function Header({ locale }: { locale: Locale }) {
 
       {open ? (
         <div className="border-t-2 border-ink bg-cream min-[920px]:hidden">
-          {navItems.map((item) => (
-            <Link
-              key={item.key}
-              href={`/${locale}${item.href ? `/${item.href}` : ""}`}
-              onClick={() => setOpen(false)}
-              className="block border-b-2 border-ink px-6 py-4 font-display text-2xl uppercase text-ink no-underline"
-            >
-              {t[item.key]}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const href = `/${locale}${item.href ? `/${item.href}` : ""}`;
+            if (item.key === "services") {
+              return (
+                <div key={item.key} className="border-b-2 border-ink">
+                  <Link
+                    href={href}
+                    onClick={() => setOpen(false)}
+                    className="block px-6 py-4 font-display text-2xl uppercase text-ink no-underline"
+                  >
+                    {t[item.key]}
+                  </Link>
+                  <div className="border-t-2 border-ink bg-paper">
+                    {services[locale].map((service) => (
+                      <Link
+                        key={service.key}
+                        href={`/${locale}/servicii#${service.key}`}
+                        onClick={() => setOpen(false)}
+                        className="flex items-center gap-3 border-b-2 border-ink px-8 py-3 font-mono text-xs font-bold uppercase tracking-[0.06em] text-ink no-underline last:border-b-0"
+                      >
+                        <span className={cn("h-3 w-3 border-2 border-ink", serviceColors[service.key])} />
+                        {service.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <Link
+                key={item.key}
+                href={href}
+                onClick={() => setOpen(false)}
+                className="block border-b-2 border-ink px-6 py-4 font-display text-2xl uppercase text-ink no-underline"
+              >
+                {t[item.key]}
+              </Link>
+            );
+          })}
         </div>
       ) : null}
     </header>

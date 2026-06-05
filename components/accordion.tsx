@@ -16,7 +16,14 @@ export function Accordion({ items }: { items: ReadonlyArray<{ q: string; a: stri
             className="flex w-full items-center justify-between gap-4 bg-transparent px-5 py-5 text-left font-display text-[22px] uppercase text-ink"
           >
             {item.q}
-            <span className={cn("grid h-8 w-8 shrink-0 place-items-center border-2 border-ink bg-yellow font-sans text-[22px] font-bold transition-transform", open === index && "rotate-45 bg-orange text-white")}>+</span>
+            <span
+              className={cn(
+                "grid h-8 w-8 shrink-0 place-items-center border-2 border-ink font-sans text-[22px] font-bold transition-transform",
+                open === index ? "rotate-45 bg-orange text-white" : "bg-yellow text-ink"
+              )}
+            >
+              +
+            </span>
           </button>
           <div className={cn("grid transition-[grid-template-rows] duration-200", open === index ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
             <div className="overflow-hidden">

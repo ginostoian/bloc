@@ -167,7 +167,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       <section className="section border-y-3 border-ink bg-orange text-white">
         <div className="wrap max-w-[820px] text-center">
-          <h2 className="display whitespace-pre-line text-[clamp(40px,6.5vw,80px)]">{t.newsletterTitle}</h2>
+          <h2 className="display whitespace-pre-line text-[clamp(40px,6.5vw,80px)] leading-[1.14]">{t.newsletterTitle}</h2>
           <p className="mx-auto mt-4 max-w-[520px] text-[19px] opacity-95">{t.newsletterText}</p>
           <form className="mx-auto mt-7 flex max-w-[540px] flex-wrap justify-center gap-3.5">
             <input className="field min-w-[240px] flex-1" type="email" placeholder={t.newsletterPlaceholder} aria-label="Email" />

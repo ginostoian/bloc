@@ -63,8 +63,8 @@ export const copy = {
       ],
       cardMetric: "+180% trafic",
       cardMeta: "în 6 luni · client e-commerce",
-      aiBadge: "AI Agent live",
-      aiMetric: "−40% timp pe suport",
+      aiBadge: "Sistem de creștere live",
+      aiMetric: "+42% lead-uri calificate",
       marquee: ["Web Development", "SEO", "AI Consulting", "Branding", "Mentenanță"],
       statsStrip: [
         ["120+", "proiecte livrate"],
@@ -199,8 +199,8 @@ export const copy = {
       ],
       cardMetric: "+180% traffic",
       cardMeta: "in 6 months · e-commerce client",
-      aiBadge: "AI Agent live",
-      aiMetric: "−40% support time",
+      aiBadge: "Growth system live",
+      aiMetric: "+42% qualified leads",
       marquee: ["Web Development", "SEO", "AI Consulting", "Branding", "Maintenance"],
       statsStrip: [
         ["120+", "projects shipped"],

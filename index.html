@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bloc — Web · AI · SEO pentru afaceri din România</title>
+<meta name="description" content="Bloc construiește site-uri, optimizare SEO și soluții AI pentru small business-uri din România. Construim, nu promitem." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/nb.css" />
+<style>
+  .hero {
+    position: relative;
+    background-image:
+      linear-gradient(rgba(20,18,16,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20,18,16,.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    overflow: hidden;
+  }
+  .hero__blob { position: absolute; border: 3px solid var(--ink); }
+  .tab {
+    font-family: "Space Mono", monospace; font-weight: 700; font-size: 13px; text-transform: uppercase;
+    letter-spacing: 0.06em; padding: 10px 18px; border: 3px solid var(--ink); background: var(--paper);
+    cursor: pointer; box-shadow: 3px 3px 0 var(--ink); transition: transform .08s, box-shadow .08s;
+  }
+  .tab:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--ink); }
+  .tab.is-on { background: var(--ink); color: #fff; }
+  .svc-row { transition: background .15s; }
+  .svc-row:hover { background: var(--orange); color: #fff; }
+  .svc-row:hover .svc-num, .svc-row:hover .svc-arrow { color:#fff; }
+  .svc-row:hover .svc-desc { color: rgba(255,255,255,.9); }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a href="index.html" class="nav__logo">
+      <span class="nav__mark">B</span>
+      <span class="nav__name">Bloc</span>
+    </a>
+    <nav class="nav__links">
+      <a href="index.html" class="nav__link is-active">Acasă</a>
+      <a href="servicii.html" class="nav__link">Servicii</a>
+      <a href="despre.html" class="nav__link">Despre</a>
+      <a href="blog.html" class="nav__link">Blog</a>
+      <a href="contact.html" class="nav__link">Contact</a>
+      <a href="contact.html" class="nb-btn nb-btn--primary" style="margin-left:8px;">Cere ofertă →</a>
+    </nav>
+    <button class="nav__burger" data-burger aria-label="Meniu"><span></span></button>
+  </div>
+  <div class="mobile-menu" data-mobile-menu>
+    <a href="index.html">Acasă</a>
+    <a href="servicii.html">Servicii</a>
+    <a href="despre.html">Despre</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" data-screen-label="Hero">
+  <div class="hero__blob bg-yellow" style="width:120px;height:120px;top:90px;right:8%;transform:rotate(12deg);box-shadow:6px 6px 0 var(--ink);"></div>
+  <div class="hero__blob bg-blue" style="width:70px;height:70px;bottom:60px;left:6%;border-radius:50%;box-shadow:5px 5px 0 var(--ink);"></div>
+  <div class="wrap" style="padding-top:84px;padding-bottom:84px;">
+    <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;" class="hero-grid">
+      <div>
+        <span class="nb-chip" style="background:var(--paper);"><span style="width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block;"></span>Agenție Web · AI · SEO — din România</span>
+        <h1 class="display" style="font-size:clamp(48px,8.5vw,108px);margin:24px 0 0;">
+          Construim,<br />nu <span style="color:var(--orange);">promitem.</span>
+        </h1>
+        <p style="font-size:20px;line-height:1.5;max-width:520px;margin:26px 0 0;color:#3a352f;">
+          Site-uri, SEO și automatizări AI pentru small business-uri din România.
+          Fără jargon, fără cuvinte mari — doar lucruri care îți aduc clienți.
+        </p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:34px;">
+          <a href="contact.html" class="nb-btn nb-btn--primary nb-btn--lg">Hai să discutăm →</a>
+          <a href="#portofoliu" class="nb-btn nb-btn--lg">Vezi proiecte</a>
+        </div>
+        <div style="display:flex;gap:26px;flex-wrap:wrap;margin-top:38px;align-items:center;">
+          <div class="font-mono" style="font-size:13px;text-transform:uppercase;letter-spacing:.06em;">
+            <strong style="font-size:22px;font-family:'Anton';display:block;">120+</strong>proiecte livrate
+          </div>
+          <div style="width:2px;height:36px;background:var(--ink);"></div>
+          <div class="font-mono" style="font-size:13px;text-transform:uppercase;letter-spacing:.06em;">
+            <strong style="font-size:22px;font-family:'Anton';display:block;">4.9/5</strong>satisfacție clienți
+          </div>
+          <div style="width:2px;height:36px;background:var(--ink);"></div>
+          <div class="font-mono" style="font-size:13px;text-transform:uppercase;letter-spacing:.06em;">
+            <strong style="font-size:22px;font-family:'Anton';display:block;">din 2018</strong>pe piață
+          </div>
+        </div>
+      </div>
+
+      <div style="position:relative;">
+        <div class="nb-card" style="padding:0;overflow:hidden;">
+          <div class="ph" style="aspect-ratio:4/3;border-bottom:3px solid var(--ink);">
+            <span class="ph__label">screenshot proiect / dashboard</span>
+          </div>
+          <div style="padding:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+            <div>
+              <div class="font-display" style="font-size:24px;">+180% trafic</div>
+              <div class="font-mono" style="font-size:12px;color:#6b655d;">în 6 luni · client e-commerce</div>
+            </div>
+            <span class="nb-chip bg-green" style="color:#fff;border-color:var(--ink);">SEO ↑</span>
+          </div>
+        </div>
+        <div class="nb-card bg-orange nb-lift" style="position:absolute;bottom:-26px;left:-26px;padding:14px 18px;color:#fff;max-width:210px;">
+          <div class="font-mono" style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.9;">AI Agent live</div>
+          <div class="font-display" style="font-size:22px;line-height:1;margin-top:4px;">−40% timp pe suport</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Web Development</span><span class="dot">●</span>
+    <span>SEO</span><span class="dot">●</span>
+    <span>AI Consulting</span><span class="dot">●</span>
+    <span>Branding</span><span class="dot">●</span>
+    <span>Mentenanță</span><span class="dot">●</span>
+    <span>Web Development</span><span class="dot">●</span>
+    <span>SEO</span><span class="dot">●</span>
+    <span>AI Consulting</span><span class="dot">●</span>
+    <span>Branding</span><span class="dot">●</span>
+    <span>Mentenanță</span><span class="dot">●</span>
+  </div>
+</div>
+
+<!-- ============ STATS ============ -->
+<section class="section bg-ink" data-screen-label="Statistici">
+  <div class="wrap">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:3px solid var(--cream);" class="stats-grid">
+      <div style="padding:40px 28px;border-right:3px solid var(--cream);" class="stat-cell">
+        <div class="font-display text-orange" style="font-size:clamp(48px,6vw,76px);line-height:1;"><span data-count="120" data-suffix="+">0</span></div>
+        <div class="font-mono" style="font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--cream);margin-top:8px;">proiecte livrate</div>
+      </div>
+      <div style="padding:40px 28px;border-right:3px solid var(--cream);" class="stat-cell">
+        <div class="font-display text-orange" style="font-size:clamp(48px,6vw,76px);line-height:1;"><span data-count="180" data-prefix="+" data-suffix="%">0</span></div>
+        <div class="font-mono" style="font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--cream);margin-top:8px;">creștere trafic medie</div>
+      </div>
+      <div style="padding:40px 28px;border-right:3px solid var(--cream);" class="stat-cell">
+        <div class="font-display text-orange" style="font-size:clamp(48px,6vw,76px);line-height:1;"><span data-count="98" data-suffix="%">0</span></div>
+        <div class="font-mono" style="font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--cream);margin-top:8px;">clienți care revin</div>
+      </div>
+      <div style="padding:40px 28px;" class="stat-cell">
+        <div class="font-display text-orange" style="font-size:clamp(48px,6vw,76px);line-height:1;"><span data-count="14" data-suffix=" zile">0</span></div>
+        <div class="font-mono" style="font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--cream);margin-top:8px;">de la brief la lansare*</div>
+      </div>
+    </div>
+    <p class="font-mono" style="color:#8a857d;font-size:12px;margin-top:14px;">* pentru pachetul Landing — proiectele complexe au alt termen</p>
+  </div>
+</section>
+
+<!-- ============ SERVICII ============ -->
+<section class="section" id="servicii" data-screen-label="Servicii">
+  <div class="wrap">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:48px;">
+      <div>
+        <span class="eyebrow text-orange">// Ce facem</span>
+        <h2 class="display" style="font-size:clamp(40px,6vw,72px);margin:12px 0 0;">Cinci moduri în care<br />îți creștem afacerea</h2>
+      </div>
+      <a href="servicii.html" class="nb-btn">Toate serviciile →</a>
+    </div>
+
+    <div class="nb-border bg-paper nb-shadow" style="overflow:hidden;">
+      <a href="servicii.html" class="svc-row" style="display:grid;grid-template-columns:80px 1fr auto;gap:24px;align-items:center;padding:30px 28px;border-bottom:3px solid var(--ink);text-decoration:none;color:inherit;">
+        <span class="svc-num font-display" style="font-size:34px;color:var(--orange);">01</span>
+        <div>
+          <h3 class="font-display" style="font-size:30px;text-transform:uppercase;">Web Development</h3>
+          <p class="svc-desc" style="margin:6px 0 0;color:#5c564e;max-width:560px;">Site-uri și magazine online rapide, pe Next.js & Tailwind. Cod curat, SEO-ready, ușor de administrat.</p>
+        </div>
+        <span class="svc-arrow font-display" style="font-size:34px;">→</span>
+      </a>
+      <a href="servicii.html" class="svc-row" style="display:grid;grid-template-columns:80px 1fr auto;gap:24px;align-items:center;padding:30px 28px;border-bottom:3px solid var(--ink);text-decoration:none;color:inherit;">
+        <span class="svc-num font-display" style="font-size:34px;color:var(--orange);">02</span>
+        <div>
+          <h3 class="font-display" style="font-size:30px;text-transform:uppercase;">SEO & Conținut</h3>
+          <p class="svc-desc" style="margin:6px 0 0;color:#5c564e;max-width:560px;">Ajungi pe prima pagină în Google pentru cuvintele care îți aduc clienți. Audit, optimizare, conținut.</p>
+        </div>
+        <span class="svc-arrow font-display" style="font-size:34px;">→</span>
+      </a>
+      <a href="servicii.html" class="svc-row" style="display:grid;grid-template-columns:80px 1fr auto;gap:24px;align-items:center;padding:30px 28px;border-bottom:3px solid var(--ink);text-decoration:none;color:inherit;">
+        <span class="svc-num font-display" style="font-size:34px;color:var(--orange);">03</span>
+        <div>
+          <h3 class="font-display" style="font-size:30px;text-transform:uppercase;">AI Consulting</h3>
+          <p class="svc-desc" style="margin:6px 0 0;color:#5c564e;max-width:560px;">Automatizări, chatboți și agenți AI care îți scad timpul pierdut și costurile pe suport și operațiuni.</p>
+        </div>
+        <span class="svc-arrow font-display" style="font-size:34px;">→</span>
+      </a>
+      <a href="servicii.html" class="svc-row" style="display:grid;grid-template-columns:80px 1fr auto;gap:24px;align-items:center;padding:30px 28px;border-bottom:3px solid var(--ink);text-decoration:none;color:inherit;">
+        <span class="svc-num font-display" style="font-size:34px;color:var(--orange);">04</span>
+        <div>
+          <h3 class="font-display" style="font-size:30px;text-transform:uppercase;">Branding & Design</h3>
+          <p class="svc-desc" style="margin:6px 0 0;color:#5c564e;max-width:560px;">Identitate vizuală cu personalitate: logo, culori, tipografie și un sistem care te face memorabil.</p>
+        </div>
+        <span class="svc-arrow font-display" style="font-size:34px;">→</span>
+      </a>
+      <a href="servicii.html" class="svc-row" style="display:grid;grid-template-columns:80px 1fr auto;gap:24px;align-items:center;padding:30px 28px;text-decoration:none;color:inherit;">
+        <span class="svc-num font-display" style="font-size:34px;color:var(--orange);">05</span>
+        <div>
+          <h3 class="font-display" style="font-size:30px;text-transform:uppercase;">Mentenanță & Suport</h3>
+          <p class="svc-desc" style="margin:6px 0 0;color:#5c564e;max-width:560px;">Update-uri, backup, securitate și un om real care răspunde. Site-ul tău rămâne rapid și sigur.</p>
+        </div>
+        <span class="svc-arrow font-display" style="font-size:34px;">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCES ============ -->
+<section class="section bg-lilac divider-ink" data-screen-label="Proces" style="border-bottom:3px solid var(--ink);">
+  <div class="wrap">
+    <span class="eyebrow">// Cum lucrăm</span>
+    <h2 class="display" style="font-size:clamp(40px,6vw,72px);margin:12px 0 48px;">Proces simplu.<br />Zero surprize.</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;" class="proces-grid">
+      <div class="nb-card nb-lift" style="padding:26px;">
+        <span class="font-display" style="font-size:46px;color:var(--orange);">01</span>
+        <h3 class="font-display" style="font-size:24px;text-transform:uppercase;margin:8px 0 0;">Descoperire</h3>
+        <p style="margin:8px 0 0;color:#5c564e;font-size:15px;">Înțelegem afacerea, clienții și obiectivele tale. Un call, întrebări bune, fără formulare interminabile.</p>
+      </div>
+      <div class="nb-card nb-lift" style="padding:26px;">
+        <span class="font-display" style="font-size:46px;color:var(--orange);">02</span>
+        <h3 class="font-display" style="font-size:24px;text-transform:uppercase;margin:8px 0 0;">Strategie</h3>
+        <p style="margin:8px 0 0;color:#5c564e;font-size:15px;">Propunem un plan clar: ce construim, în ce ordine și ce rezultate urmărim. Tu aprobi, noi pornim.</p>
+      </div>
+      <div class="nb-card nb-lift" style="padding:26px;">
+        <span class="font-display" style="font-size:46px;color:var(--orange);">03</span>
+        <h3 class="font-display" style="font-size:24px;text-transform:uppercase;margin:8px 0 0;">Build</h3>
+        <p style="margin:8px 0 0;color:#5c564e;font-size:15px;">Design și dezvoltare în sprinturi scurte. Vezi progresul live și dai feedback pe parcurs.</p>
+      </div>
+      <div class="nb-card nb-lift bg-orange" style="padding:26px;color:#fff;">
+        <span class="font-display" style="font-size:46px;color:#fff;">04</span>
+        <h3 class="font-display" style="font-size:24px;text-transform:uppercase;margin:8px 0 0;">Lansare & creștere</h3>
+        <p style="margin:8px 0 0;color:rgba(255,255,255,.92);font-size:15px;">Lansăm, măsurăm și optimizăm. Nu dispărem după go-live — abia atunci începe partea bună.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTOFOLIU ============ -->
+<section class="section" id="portofoliu" data-screen-label="Portofoliu">
+  <div class="wrap">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:32px;">
+      <div>
+        <span class="eyebrow text-orange">// Proiecte</span>
+        <h2 class="display" style="font-size:clamp(40px,6vw,72px);margin:12px 0 0;">Rezultate, nu mockup-uri</h2>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:34px;">
+      <button class="tab is-on" data-filter="all">Toate</button>
+      <button class="tab" data-filter="web">Web</button>
+      <button class="tab" data-filter="seo">SEO</button>
+      <button class="tab" data-filter="ai">AI</button>
+      <button class="tab" data-filter="branding">Branding</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="portfolio-grid">
+      <!-- card -->
+      <article class="nb-card nb-lift" data-cat="web seo" style="overflow:hidden;">
+        <div class="ph bg-yellow" style="aspect-ratio:16/11;border-bottom:3px solid var(--ink);"><span class="ph__label">screenshot · Florăria Mioara</span></div>
+        <div style="padding:20px;">
+          <div style="display:flex;gap:8px;margin-bottom:10px;"><span class="nb-chip">Web</span><span class="nb-chip">SEO</span></div>
+          <h3 class="font-display" style="font-size:24px;text-transform:uppercase;">Florăria Mioara</h3>
+          <p style="margin:6px 0 14px;color:#5c564e;font-size:15px;">Magazin online + SEO local. Comenzi online de la zero.</p>
+          <div style="display:flex;justify-content:space-between;border-top:2px solid var(--ink);padding-top:12px;">
+            <span class="font-display text-orange" style="font-size:28px;">+240%</span>
+            <span class="font-mono" style="font-size:12px;align-self:flex-end;color:#6b655d;">comenzi online</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="nb-card nb-lift" data-cat="ai web" style="overflow:hidden;">
+        <div class="ph bg-blue" style="aspect-ratio:16/11;border-bottom:3px solid var(--ink);"><span class="ph__label">screenshot · ContaPlus</span></div>
+        <div style="padding:20px;">
+          <div style="display:flex;gap:8px;margin-bottom:10px;"><span class="nb-chip">AI</span><span class="nb-chip">Web</span></div>
+          <h3 class="font-display" style="font-size:24px;text-transform:uppercase;">ContaPlus</h3>
+          <p style="margin:6px 0 14px;color:#5c564e;font-size:15px;">Agent AI pentru întrebări contabile. Suport non-stop.</p>
+          <div style="display:flex;justify-content:space-between;border-top:2px solid var(--ink);padding-top:12px;">
+            <span class="font-display text-orange" style="font-size:28px;">−40%</span>
+            <span class="font-mono" style="font-size:12px;align-self:flex-end;color:#6b655d;">timp pe suport</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="nb-card nb-lift" data-cat="branding web" style="overflow:hidden;">
+        <div class="ph bg-pink" style="aspect-ratio:16/11;border-bottom:3px solid var(--ink);background:var(--pink);"><span class="ph__label">screenshot · Cafea Bună</span></div>
+        <div style="padding:20px;">
+          <div style="display:flex;gap:8px;margin-bottom:10px;"><span class="nb-chip">Branding</span><span class="nb-chip">Web</span></div>
+          <h3 class="font-display" style="font-size:24px;text-transform:uppercase;">Cafea Bună</h3>
+          <p style="margin:6px 0 14px;color:#5c564e;font-size:15px;">Rebranding complet + site de prezentare pentru o prăjitorie.</p>
+          <div style="display:flex;justify-content:space-between;border-top:2px solid var(--ink);padding-top:12px;">
+            <span class="font-display text-orange" style="font-size:28px;">3x</span>
+            <span class="font-mono" style="font-size:12px;align-self:flex-end;color:#6b655d;">cereri colaborare</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="nb-card nb-lift" data-cat="seo" style="overflow:hidden;">
+        <div class="ph bg-green" style="aspect-ratio:16/11;border-bottom:3px solid var(--ink);background:var(--green);"><span class="ph__label">screenshot · DrZâmbet</span></div>
+        <div style="padding:20px;">
+          <div style="display:flex;gap:8px;margin-bottom:10px;"><span class="nb-chip">SEO</span></div>
+          <h3 class="font-display" style="font-size:24px;text-transform:uppercase;">Clinica DrZâmbet</h3>
+          <p style="margin:6px 0 14px;color:#5c564e;font-size:15px;">SEO local pentru o clinică stomatologică din Cluj.</p>
+          <div style="display:flex;justify-content:space-between;border-top:2px solid var(--ink);padding-top:12px;">
+            <span class="font-display text-orange" style="font-size:28px;">Top 3</span>
+            <span class="font-mono" style="font-size:12px;align-self:flex-end;color:#6b655d;">Google local</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="nb-card nb-lift" data-cat="web ai" style="overflow:hidden;">
+        <div class="ph bg-lilac" style="aspect-ratio:16/11;border-bottom:3px solid var(--ink);background:var(--lilac);"><span class="ph__label">screenshot · MobilaPro</span></div>
+        <div style="padding:20px;">
+          <div style="display:flex;gap:8px;margin-bottom:10px;"><span class="nb-chip">Web</span><span class="nb-chip">AI</span></div>
+          <h3 class="font-display" style="font-size:24px;text-transform:uppercase;">MobilaPro</h3>
+          <p style="margin:6px 0 14px;color:#5c564e;font-size:15px;">Configurator de mobilă cu recomandări AI și ofertă instant.</p>
+          <div style="display:flex;justify-content:space-between;border-top:2px solid var(--ink);padding-top:12px;">
+            <span class="font-display text-orange" style="font-size:28px;">+65%</span>
+            <span class="font-mono" style="font-size:12px;align-self:flex-end;color:#6b655d;">cereri de ofertă</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="nb-card nb-lift" data-cat="branding" style="overflow:hidden;">
+        <div class="ph" style="aspect-ratio:16/11;border-bottom:3px solid var(--ink);"><span class="ph__label">screenshot · Verde Bistro</span></div>
+        <div style="padding:20px;">
+          <div style="display:flex;gap:8px;margin-bottom:10px;"><span class="nb-chip">Branding</span></div>
+          <h3 class="font-display" style="font-size:24px;text-transform:uppercase;">Verde Bistro</h3>
+          <p style="margin:6px 0 14px;color:#5c564e;font-size:15px;">Identitate vizuală nouă pentru un bistro vegetarian.</p>
+          <div style="display:flex;justify-content:space-between;border-top:2px solid var(--ink);padding-top:12px;">
+            <span class="font-display text-orange" style="font-size:28px;">+90%</span>
+            <span class="font-mono" style="font-size:12px;align-self:flex-end;color:#6b655d;">recunoaștere brand</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALE ============ -->
+<section class="section bg-ink" data-screen-label="Testimoniale">
+  <div class="wrap">
+    <span class="eyebrow text-orange">// Ce spun clienții</span>
+    <h2 class="display" style="font-size:clamp(40px,6vw,72px);margin:12px 0 48px;color:var(--cream);">Nu ne credeți pe cuvânt</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="testi-grid">
+      <figure class="nb-card" style="padding:26px;margin:0;background:var(--cream);">
+        <div class="font-display text-orange" style="font-size:54px;line-height:.6;">“</div>
+        <blockquote style="margin:0;font-size:17px;line-height:1.55;">Au înțeles în 20 de minute ce alții n-au priceput în luni. Site nou, comenzi duble. Recomand cu ochii închiși.</blockquote>
+        <figcaption style="margin-top:20px;display:flex;align-items:center;gap:12px;">
+          <span style="width:42px;height:42px;background:var(--yellow);border:2px solid var(--ink);display:grid;place-items:center;font-family:'Anton';">M</span>
+          <span><strong style="display:block;">Mioara P.</strong><span class="font-mono" style="font-size:12px;color:#6b655d;">Florăria Mioara</span></span>
+        </figcaption>
+      </figure>
+      <figure class="nb-card" style="padding:26px;margin:0;background:var(--cream);">
+        <div class="font-display text-orange" style="font-size:54px;line-height:.6;">“</div>
+        <blockquote style="margin:0;font-size:17px;line-height:1.55;">Agentul Af ne răspunde clienților și noaptea. Echipa de suport respiră, iar clienții sunt mai mulțumiți.</blockquote>
+        <figcaption style="margin-top:20px;display:flex;align-items:center;gap:12px;">
+          <span style="width:42px;height:42px;background:var(--blue);border:2px solid var(--ink);display:grid;place-items:center;font-family:'Anton';color:#fff;">A</span>
+          <span><strong style="display:block;">Andrei T.</strong><span class="font-mono" style="font-size:12px;color:#6b655d;">ContaPlus</span></span>
+        </figcaption>
+      </figure>
+      <figure class="nb-card" style="padding:26px;margin:0;background:var(--cream);">
+        <div class="font-display text-orange" style="font-size:54px;line-height:.6;">“</div>
+        <blockquote style="margin:0;font-size:17px;line-height:1.55;">Oameni cu care se poate vorbi pe limba omului. Fără termeni pompoși, doar rezultate pe care le văd în raport.</blockquote>
+        <figcaption style="margin-top:20px;display:flex;align-items:center;gap:12px;">
+          <span style="width:42px;height:42px;background:var(--green);border:2px solid var(--ink);display:grid;place-items:center;font-family:'Anton';color:#fff;">R</span>
+          <span><strong style="display:block;">Raluca D.</strong><span class="font-mono" style="font-size:12px;color:#6b655d;">Clinica DrZâmbet</span></span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" data-screen-label="FAQ">
+  <div class="wrap" style="max-width:900px;">
+    <div style="text-align:center;margin-bottom:48px;">
+      <span class="eyebrow text-orange">// Întrebări frecvente</span>
+      <h2 class="display" style="font-size:clamp(40px,6vw,72px);margin:12px 0 0;">Răspunsuri pe șleau</h2>
+    </div>
+    <div data-acc-group>
+      <div class="acc__item" data-acc>
+        <button class="acc__head">Cât costă un site? <span class="acc__icon">+</span></button>
+        <div class="acc__body"><p>Depinde de ce ai nevoie. Un landing page pornește de la ~600€, un magazin online de la ~2000€. La primul call îți dăm un interval clar, fără surprize ulterioare. Plătești pe etape, nu tot odată.</p></div>
+      </div>
+      <div class="acc__item" data-acc>
+        <button class="acc__head">În cât timp e gata? <span class="acc__icon">+</span></button>
+        <div class="acc__body"><p>Un landing simplu în 2 săptămâni. Un site de prezentare în 3–4 săptămâni. Proiectele complexe (e-commerce, AI) între 6 și 10 săptămâni. Îți dăm un calendar real de la început și ne ținem de el.</p></div>
+      </div>
+      <div class="acc__item" data-acc>
+        <button class="acc__head">Pot să-mi administrez singur site-ul? <span class="acc__icon">+</span></button>
+        <div class="acc__body"><p>Da. Construim totul ușor de editat și îți facem un mic training (plus un ghid video). Dacă nu vrei să te atingi de el, avem pachet de mentenanță și ne ocupăm noi de tot.</p></div>
+      </div>
+      <div class="acc__item" data-acc>
+        <button class="acc__head">Ce înseamnă mai exact „AI Consulting”? <span class="acc__icon">+</span></button>
+        <div class="acc__body"><p>Pe scurt: găsim unde pierzi timp și bani în operațiuni și îl rezolvăm cu automatizări sau agenți AI — chatbot pe site, răspunsuri automate, procesare de documente, generare de conținut. Fără hype, doar lucruri care chiar economisesc timp.</p></div>
+      </div>
+      <div class="acc__item" data-acc>
+        <button class="acc__head">Lucrați cu firme mici? <span class="acc__icon">+</span></button>
+        <div class="acc__body"><p>Asta facem cel mai des. Majoritatea clienților noștri sunt small business-uri din România. Adaptăm soluția la bugetul tău și creștem împreună — nu trebuie să fii corporație ca să lucrezi cu noi.</p></div>
+      </div>
+      <div class="acc__item" data-acc>
+        <button class="acc__head">Ce se întâmplă după lansare? <span class="acc__icon">+</span></button>
+        <div class="acc__body"><p>Rămânem alături. Monitorizăm, optimizăm și îmbunătățim pe baza datelor reale. Ai un om dedicat la care poți apela, nu un formular de tichete care nu răspunde niciodată.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER / CTA ============ -->
+<section class="section bg-orange divider-ink" data-screen-label="Newsletter" style="border-bottom:3px solid var(--ink);">
+  <div class="wrap" style="max-width:820px;text-align:center;color:#fff;">
+    <h2 class="display" style="font-size:clamp(40px,6.5vw,80px);">Primește 1 idee bună<br />pe săptămână</h2>
+    <p style="font-size:19px;margin:18px auto 0;max-width:540px;opacity:.95;">Tactici de web, SEO și AI pe care le poți aplica la afacerea ta. Fără spam, fără vândut. Te poți dezabona oricând.</p>
+    <form data-form style="margin-top:32px;">
+      <div class="form-grid" style="display:flex;gap:14px;max-width:540px;margin:0 auto;flex-wrap:wrap;justify-content:center;">
+        <input type="email" class="field" data-required placeholder="adresa@email.ro" aria-label="Email" style="flex:1;min-width:240px;" />
+        <button type="submit" class="nb-btn nb-btn--ink nb-btn--lg">Mă abonez →</button>
+      </div>
+      <div data-success style="display:none;" class="nb-card" style="padding:22px;max-width:540px;margin:0 auto;background:var(--cream);color:var(--ink);">
+        <div class="font-display" style="font-size:26px;">Gata! Ești pe listă. ✓</div>
+        <p style="margin:6px 0 0;color:#5c564e;">Verifică-ți inboxul — îți trimitem prima idee zilele astea.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="section" data-screen-label="CTA final">
+  <div class="wrap">
+    <div class="nb-card nb-shadow-lg" style="background:var(--ink);color:var(--cream);padding:clamp(40px,6vw,72px);text-align:center;">
+      <h2 class="display" style="font-size:clamp(40px,7vw,88px);">Ai un proiect?<br /><span class="text-orange">Hai să-l construim.</span></h2>
+      <p style="font-size:19px;margin:18px auto 30px;max-width:520px;color:#cfc9bf;">Un call de 30 de minute, fără obligații. Îți spunem sincer dacă te putem ajuta și cum.</p>
+      <a href="contact.html" class="nb-btn nb-btn--primary nb-btn--lg">Cere o ofertă gratuită →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap" style="padding:64px 24px 28px;">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;" class="footer-grid">
+      <div>
+        <a href="index.html" class="nav__logo" style="margin-bottom:16px;">
+          <span class="nav__mark">B</span>
+          <span class="nav__name" style="color:var(--cream);">Bloc</span>
+        </a>
+        <p style="max-width:300px;color:#a39d93;font-size:15px;">Web, AI și SEO pentru afaceri care vor să crească. Construim, nu promitem.</p>
+      </div>
+      <div>
+        <div class="font-mono" style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#7c766d;margin-bottom:14px;">Meniu</div>
+        <a href="index.html" style="display:block;text-decoration:none;margin-bottom:10px;">Acasă</a>
+        <a href="servicii.html" style="display:block;text-decoration:none;margin-bottom:10px;">Servicii</a>
+        <a href="despre.html" style="display:block;text-decoration:none;margin-bottom:10px;">Despre</a>
+        <a href="blog.html" style="display:block;text-decoration:none;margin-bottom:10px;">Blog</a>
+        <a href="contact.html" style="display:block;text-decoration:none;">Contact</a>
+      </div>
+      <div>
+        <div class="font-mono" style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#7c766d;margin-bottom:14px;">Servicii</div>
+        <a href="servicii.html" style="display:block;text-decoration:none;margin-bottom:10px;">Web Development</a>
+        <a href="servicii.html" style="display:block;text-decoration:none;margin-bottom:10px;">SEO</a>
+        <a href="servicii.html" style="display:block;text-decoration:none;margin-bottom:10px;">AI Consulting</a>
+        <a href="servicii.html" style="display:block;text-decoration:none;">Branding</a>
+      </div>
+      <div>
+        <div class="font-mono" style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#7c766d;margin-bottom:14px;">Contact</div>
+        <a href="mailto:salut@bloc.ro" style="display:block;text-decoration:none;margin-bottom:10px;">salut@bloc.ro</a>
+        <a href="tel:+40700000000" style="display:block;text-decoration:none;margin-bottom:10px;">+40 700 000 000</a>
+        <span style="display:block;color:#a39d93;font-size:15px;">Cluj-Napoca, România</span>
+      </div>
+    </div>
+    <div style="border-top:2px solid #2c2820;margin-top:40px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <span class="font-mono" style="font-size:12px;color:#7c766d;">© 2026 Bloc SRL. Toate drepturile rezervate.</span>
+      <span class="font-mono" style="font-size:12px;color:#7c766d;">Construit cu Next.js · Tailwind · shadcn</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/nb.js"></script>
+</body>
+</html>

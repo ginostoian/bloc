@@ -61,10 +61,10 @@ export const copy = {
         ["4.9/5", "satisfacție clienți"],
         ["din 2018", "pe piață"]
       ],
-      cardMetric: "+180% trafic",
-      cardMeta: "în 6 luni · client e-commerce",
-      aiBadge: "Sistem de creștere live",
-      aiMetric: "+42% lead-uri calificate",
+      cardMetric: "4 proiecte live",
+      cardMeta: "web, e-commerce & SEO local",
+      aiBadge: "Portofoliu actualizat",
+      aiMetric: "De la brief la site live",
       marquee: ["Web Development", "SEO", "AI Consulting", "Branding", "Mentenanță"],
       statsStrip: [
         ["120+", "proiecte livrate"],
@@ -86,8 +86,6 @@ export const copy = {
       ],
       portfolioEyebrow: "// Proiecte",
       portfolioTitle: "Rezultate, nu mockup-uri",
-      testimonialsEyebrow: "// Ce spun clienții",
-      testimonialsTitle: "Nu ne credeți pe cuvânt",
       faqEyebrow: "// Întrebări frecvente",
       faqTitle: "Răspunsuri pe șleau",
       newsletterTitle: "Primește 1 idee bună\npe săptămână",
@@ -197,10 +195,10 @@ export const copy = {
         ["4.9/5", "client satisfaction"],
         ["since 2018", "in business"]
       ],
-      cardMetric: "+180% traffic",
-      cardMeta: "in 6 months · e-commerce client",
-      aiBadge: "Growth system live",
-      aiMetric: "+42% qualified leads",
+      cardMetric: "4 live projects",
+      cardMeta: "web, e-commerce & local SEO",
+      aiBadge: "Portfolio updated",
+      aiMetric: "From brief to live site",
       marquee: ["Web Development", "SEO", "AI Consulting", "Branding", "Maintenance"],
       statsStrip: [
         ["120+", "projects shipped"],
@@ -222,8 +220,6 @@ export const copy = {
       ],
       portfolioEyebrow: "// Projects",
       portfolioTitle: "Results, not mockups",
-      testimonialsEyebrow: "// Client words",
-      testimonialsTitle: "Don't take our word for it",
       faqEyebrow: "// FAQ",
       faqTitle: "Straight answers",
       newsletterTitle: "Get 1 sharp idea\nevery week",
@@ -397,41 +393,124 @@ export const services: Record<Locale, Array<{
 
 export const projects: Record<Locale, Array<{
   title: string;
+  domain: string;
+  url: string;
+  image: string;
   cats: CategoryKey[];
   text: string;
+  challenge: string;
+  solution: string;
+  outcome: string;
   metric: string;
   metricLabel: string;
-  color: string;
-  visual: string;
 }>> = {
   ro: [
-    { title: "Florăria Mioara", cats: ["web", "seo"], text: "Magazin online + SEO local. Comenzi online de la zero.", metric: "+240%", metricLabel: "comenzi online", color: "bg-yellow", visual: "screenshot · Florăria Mioara" },
-    { title: "ContaPlus", cats: ["ai", "web"], text: "Agent AI pentru întrebări contabile. Suport non-stop.", metric: "−40%", metricLabel: "timp pe suport", color: "bg-blue", visual: "screenshot · ContaPlus" },
-    { title: "Cafea Bună", cats: ["branding", "web"], text: "Rebranding complet + site de prezentare pentru o prăjitorie.", metric: "3x", metricLabel: "cereri colaborare", color: "bg-pink", visual: "screenshot · Cafea Bună" },
-    { title: "Clinica DrZâmbet", cats: ["seo"], text: "SEO local pentru o clinică stomatologică din Cluj.", metric: "Top 3", metricLabel: "Google local", color: "bg-green", visual: "screenshot · DrZâmbet" },
-    { title: "MobilaPro", cats: ["web", "ai"], text: "Configurator de mobilă cu recomandări AI și ofertă instant.", metric: "+65%", metricLabel: "cereri de ofertă", color: "bg-lilac", visual: "screenshot · MobilaPro" },
-    { title: "Verde Bistro", cats: ["branding"], text: "Identitate vizuală nouă pentru un bistro vegetarian.", metric: "+90%", metricLabel: "recunoaștere brand", color: "bg-cream", visual: "screenshot · Verde Bistro" }
+    {
+      title: "Prim Vet",
+      domain: "primvet.ro",
+      url: "https://www.primvet.ro/",
+      image: "/projects/primvet.png",
+      cats: ["web", "seo"],
+      text: "Website de servicii veterinare construit în jurul încrederii, expertizei și programării rapide.",
+      challenge: "Expertiza unui medic veterinar ortoped trebuia transformată într-o prezență digitală clară, calmă și ușor de găsit local.",
+      solution: "Am organizat serviciile, ortopedia și conținutul educațional în trasee scurte către programare, telefon și cabinet.",
+      outcome: "Un punct digital complet pentru pacienții din Iași, de la primul simptom până la vizită.",
+      metric: "30+ ani",
+      metricLabel: "experiență pusă în valoare"
+    },
+    {
+      title: "RawMina",
+      domain: "rawmina.com",
+      url: "https://www.rawmina.com/",
+      image: "/projects/rawmina.png",
+      cats: ["branding", "web"],
+      text: "Catalog e-commerce pentru o cofetărie raw vegană, cu un univers vizual cald și memorabil.",
+      challenge: "Produsele artizanale și ingredientele curate aveau nevoie de o prezentare online care să păstreze personalitatea brandului.",
+      solution: "Am combinat storytelling editorial, fotografie de produs, categorii clare și un flux simplu de selecție și comandă.",
+      outcome: "Un catalog ușor de explorat, care face produsele pofticioase și diferențiatorii ușor de înțeles.",
+      metric: "25",
+      metricLabel: "produse în catalog"
+    },
+    {
+      title: "Better Homes",
+      domain: "bhstudio.co.uk",
+      url: "https://bhstudio.co.uk/",
+      image: "/projects/bhstudio.png",
+      cats: ["web", "seo"],
+      text: "Platformă de achiziție pentru renovări premium, extensii și conversii de mansardă în Londra.",
+      challenge: "Un serviciu complex și cu valoare mare trebuia explicat simplu și susținut de suficiente dovezi înaintea primei consultații.",
+      solution: "Am structurat servicii, ghiduri de cost, calculatoare, studii de caz și recenzii în jurul deciziei proprietarului.",
+      outcome: "Un site care construiește încredere, califică proiectele și conectează căutarea organică direct cu programarea.",
+      metric: "500+",
+      metricLabel: "proiecte livrate"
+    },
+    {
+      title: "MiniClinic",
+      domain: "miniclinic-theta.vercel.app",
+      url: "https://miniclinic-theta.vercel.app/",
+      image: "/projects/miniclinic.png",
+      cats: ["web", "seo"],
+      text: "Website medical local care aduce specialitățile pediatrice, medicii și programarea într-un singur traseu clar.",
+      challenge: "O ofertă medicală multidisciplinară trebuia organizată pe întrebările părinților și pe intențiile de căutare locale.",
+      solution: "Am creat pagini dedicate pentru servicii și specialități, profiluri medicale și contacte vizibile în momentele potrivite.",
+      outcome: "Familiile pot găsi mai repede specialistul potrivit și pot trece direct la programare.",
+      metric: "12",
+      metricLabel: "servicii prezentate"
+    }
   ],
   en: [
-    { title: "Mioara Flowers", cats: ["web", "seo"], text: "Online store + local SEO. Online orders from zero.", metric: "+240%", metricLabel: "online orders", color: "bg-yellow", visual: "screenshot · Mioara Flowers" },
-    { title: "ContaPlus", cats: ["ai", "web"], text: "AI agent for accounting questions. Non-stop support.", metric: "−40%", metricLabel: "support time", color: "bg-blue", visual: "screenshot · ContaPlus" },
-    { title: "Cafea Bună", cats: ["branding", "web"], text: "Full rebrand + presentation website for a coffee roaster.", metric: "3x", metricLabel: "partner requests", color: "bg-pink", visual: "screenshot · Cafea Bună" },
-    { title: "DrZambet Clinic", cats: ["seo"], text: "Local SEO for a dental clinic in Cluj.", metric: "Top 3", metricLabel: "local Google", color: "bg-green", visual: "screenshot · DrZambet" },
-    { title: "MobilaPro", cats: ["web", "ai"], text: "Furniture configurator with AI recommendations and instant quotes.", metric: "+65%", metricLabel: "quote requests", color: "bg-lilac", visual: "screenshot · MobilaPro" },
-    { title: "Verde Bistro", cats: ["branding"], text: "New visual identity for a vegetarian bistro.", metric: "+90%", metricLabel: "brand recall", color: "bg-cream", visual: "screenshot · Verde Bistro" }
-  ]
-};
-
-export const testimonials: Record<Locale, Array<{ quote: string; name: string; company: string; color: string; initial: string }>> = {
-  ro: [
-    { quote: "Au înțeles în 20 de minute ce alții n-au priceput în luni. Site nou, comenzi duble.", name: "Mioara P.", company: "Florăria Mioara", color: "bg-yellow", initial: "M" },
-    { quote: "Agentul AI ne răspunde clienților și noaptea. Echipa de suport respiră.", name: "Andrei T.", company: "ContaPlus", color: "bg-blue text-white", initial: "A" },
-    { quote: "Oameni cu care se poate vorbi pe limba omului. Fără termeni pompoși, doar rezultate.", name: "Raluca D.", company: "Clinica DrZâmbet", color: "bg-green text-white", initial: "R" }
-  ],
-  en: [
-    { quote: "They understood in 20 minutes what others missed for months. New site, double the orders.", name: "Mioara P.", company: "Mioara Flowers", color: "bg-yellow", initial: "M" },
-    { quote: "The AI agent replies to customers at night. Our support team finally has breathing room.", name: "Andrei T.", company: "ContaPlus", color: "bg-blue text-white", initial: "A" },
-    { quote: "People you can actually talk to. No inflated terms, just results we can see.", name: "Raluca D.", company: "DrZambet Clinic", color: "bg-green text-white", initial: "R" }
+    {
+      title: "Prim Vet",
+      domain: "primvet.ro",
+      url: "https://www.primvet.ro/",
+      image: "/projects/primvet.png",
+      cats: ["web", "seo"],
+      text: "A veterinary services website built around trust, expertise, and quick appointment paths.",
+      challenge: "A veterinary orthopaedics specialist's expertise needed a clear, reassuring digital presence that could also perform in local search.",
+      solution: "We organised services, orthopaedics, and educational content into short journeys towards booking, calling, or finding the clinic.",
+      outcome: "A complete digital front door for pet owners in Iași, from the first symptom to the clinic visit.",
+      metric: "30+ years",
+      metricLabel: "of expertise highlighted"
+    },
+    {
+      title: "RawMina",
+      domain: "rawmina.com",
+      url: "https://www.rawmina.com/",
+      image: "/projects/rawmina.png",
+      cats: ["branding", "web"],
+      text: "An e-commerce catalogue for a raw vegan bakery, wrapped in a warm and memorable visual world.",
+      challenge: "The handmade products and clean ingredients needed an online presentation that preserved the brand's personality.",
+      solution: "We combined editorial storytelling, product photography, clear categories, and a simple selection and ordering flow.",
+      outcome: "An easy-to-browse catalogue that makes the products desirable and the differentiators immediately clear.",
+      metric: "25",
+      metricLabel: "products in the catalogue"
+    },
+    {
+      title: "Better Homes",
+      domain: "bhstudio.co.uk",
+      url: "https://bhstudio.co.uk/",
+      image: "/projects/bhstudio.png",
+      cats: ["web", "seo"],
+      text: "A lead-generation platform for premium renovations, extensions, and loft conversions in London.",
+      challenge: "A complex, high-value service needed to feel simple and provide enough proof before the first consultation.",
+      solution: "We structured services, cost guides, calculators, case studies, and reviews around the homeowner's decision journey.",
+      outcome: "A website that builds trust, qualifies projects, and connects organic discovery to consultation bookings.",
+      metric: "500+",
+      metricLabel: "projects delivered"
+    },
+    {
+      title: "MiniClinic",
+      domain: "miniclinic-theta.vercel.app",
+      url: "https://miniclinic-theta.vercel.app/",
+      image: "/projects/miniclinic.png",
+      cats: ["web", "seo"],
+      text: "A local medical website bringing paediatric specialities, doctors, and appointments into one clear journey.",
+      challenge: "A multidisciplinary medical offer needed to be organised around parents' questions and local search intent.",
+      solution: "We created dedicated service and speciality pages, clinician profiles, and visible contact paths at the right moments.",
+      outcome: "Families can find the right specialist faster and move straight to requesting an appointment.",
+      metric: "12",
+      metricLabel: "services presented"
+    }
   ]
 };
 

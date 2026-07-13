@@ -1,8 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Accordion } from "@/components/accordion";
 import { PortfolioFilter } from "@/components/filters";
-import { Chip, NbButton, Placeholder, SectionTitle } from "@/components/primitives";
-import { copy, faqs, serviceColors, services, testimonials } from "@/lib/content";
+import { Chip, NbButton, SectionTitle } from "@/components/primitives";
+import { copy, faqs, services } from "@/lib/content";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -52,7 +53,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
             <div className="relative">
               <div className="nb-card overflow-hidden p-0">
-                <Placeholder label="screenshot proiect / dashboard" className="aspect-[4/3] border-b-3 border-ink" />
+                <a href="https://www.rawmina.com/" target="_blank" rel="noreferrer" className="block overflow-hidden border-b-3 border-ink">
+                  <Image
+                    src="/projects/rawmina.png"
+                    alt={locale === "ro" ? "RawMina — proiect e-commerce live" : "RawMina — live e-commerce project"}
+                    width={1280}
+                    height={720}
+                    priority
+                    sizes="(min-width: 860px) 38vw, 100vw"
+                    className="aspect-[4/3] w-full object-cover"
+                  />
+                </a>
                 <div className="flex items-center justify-between gap-3 p-[18px]">
                   <div>
                     <div className="font-display text-2xl">{t.cardMetric}</div>
@@ -135,31 +146,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      <section className="section bg-ink">
-        <div className="wrap">
-          <SectionTitle eyebrow={t.testimonialsEyebrow} title={t.testimonialsTitle} dark />
-          <div className="mt-12 grid gap-6 min-[620px]:grid-cols-2 min-[900px]:grid-cols-3">
-            {testimonials[locale].map((item) => (
-              <figure key={item.name} className="nb-card m-0 bg-cream p-6">
-                <div className="font-display text-[54px] leading-[.6] text-orange">“</div>
-                <blockquote className="m-0 text-[17px] leading-normal">{item.quote}</blockquote>
-                <figcaption className="mt-5 flex items-center gap-3">
-                  <span className={cn("grid h-[42px] w-[42px] place-items-center border-2 border-ink font-display", item.color)}>{item.initial}</span>
-                  <span>
-                    <strong className="block">{item.name}</strong>
-                    <span className="font-mono text-xs text-[#6b655d]">{item.company}</span>
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
+      <section className="section border-t-3 border-ink bg-ink text-cream">
         <div className="wrap max-w-[900px]">
           <div className="mb-12">
-            <SectionTitle eyebrow={t.faqEyebrow} title={t.faqTitle} centered />
+            <SectionTitle eyebrow={t.faqEyebrow} title={t.faqTitle} centered dark />
           </div>
           <Accordion items={faqs[locale]} />
         </div>

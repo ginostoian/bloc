@@ -1,0 +1,7 @@
+import Link from "next/link";
+import type { ReactNode } from "react";
+import type { Locale } from "@/lib/i18n";
+export function Eyebrow({children}:{children:ReactNode}){return <div className="meta">{children}</div>}
+export function PageIntro({locale,section,title,accent,text}:{locale:Locale;section:string;title:string;accent?:string;text:string}){const parts=accent?title.split(accent):[title];return <section className="shell section-tight"><div className="meta crumb"><Link href={`/${locale}`}>Bloc</Link><span>/</span><span style={{color:"var(--ink)"}}>{section}</span></div><h1 className="page-title">{accent&&parts.length>1?<>{parts[0]}<em className="serif accent">{accent}</em>{parts.slice(1).join(accent)}</>:title}</h1><p className="lead" style={{marginTop:32}}>{text}</p></section>}
+export function FinalCta({locale,title,text,button}:{locale:Locale;title:string;text:string;button:string}){return <section className="orange-section section"><div className="shell"><div className="meta">// {locale==="ro"?"Următorul pas":"Next step"}</div><h2 className="display" style={{maxWidth:900}}>{title}</h2><p className="lead" style={{maxWidth:620,margin:"28px 0"}}>{text}</p><Link className="btn" href={`/${locale}/contact`}>{button} →</Link></div></section>}
+export function Faq({items}:{items:[string,string][]}){return <div className="faq">{items.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div>}

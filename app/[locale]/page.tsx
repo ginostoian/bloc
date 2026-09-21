@@ -1,186 +1,30 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Accordion } from "@/components/accordion";
-import { PortfolioFilter } from "@/components/filters";
-import { Chip, NbButton, SectionTitle } from "@/components/primitives";
-import { copy, faqs, services } from "@/lib/content";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import { ConversionCalculator } from "@/components/conversion-calculator";
+import { Eyebrow, Faq, FinalCta } from "@/components/ui";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { cn } from "@/lib/utils";
-
-export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: rawLocale } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "ro";
-  const t = copy[locale].home;
-
-  return (
-    <>
-      <section className="page-grid relative overflow-hidden">
-        <div className="absolute right-[8%] top-[90px] z-0 hidden h-[120px] w-[120px] rotate-12 border-3 border-ink bg-yellow shadow-nb md:block" />
-        <div className="absolute bottom-[60px] left-[6%] z-0 hidden h-[70px] w-[70px] rounded-full border-3 border-ink bg-blue shadow-nb-sm md:block" />
-        <div className="wrap relative z-10 py-20 md:py-[84px]">
-          <div className="grid items-center gap-12 min-[860px]:grid-cols-[1.15fr_.85fr]">
-            <div>
-              <Chip>
-                <span className="h-2 w-2 rounded-full bg-green" />
-                {t.heroChip}
-              </Chip>
-              <h1 className="display mt-6 text-[clamp(48px,8.5vw,108px)]">
-                {t.heroTitleA}
-                <br />
-                {t.heroTitleB} <span className="text-orange">{t.heroTitleAccent}</span>
-              </h1>
-              <p className="mt-6 max-w-[520px] text-xl leading-normal text-[#3a352f]">{t.heroText}</p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <NbButton href={`/${locale}/contact`} variant="primary" size="lg">
-                  {t.heroCta} →
-                </NbButton>
-                <NbButton href="#portofoliu" size="lg">
-                  {t.heroSecondary}
-                </NbButton>
-              </div>
-              <div className="mt-9 flex flex-wrap items-center gap-6">
-                {t.stats.map(([value, label], index) => (
-                  <div key={label} className="contents">
-                    {index > 0 ? <div className="hidden h-9 w-0.5 bg-ink sm:block" /> : null}
-                    <div className="font-mono text-[13px] uppercase tracking-[0.06em]">
-                      <strong className="block font-display text-[22px] normal-case">{value}</strong>
-                      {label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="relative">
-              <div className="nb-card overflow-hidden p-0">
-                <a href="https://www.rawmina.com/" target="_blank" rel="noreferrer" className="block overflow-hidden border-b-3 border-ink">
-                  <Image
-                    src="/projects/rawmina.png"
-                    alt={locale === "ro" ? "RawMina — proiect e-commerce live" : "RawMina — live e-commerce project"}
-                    width={1280}
-                    height={720}
-                    priority
-                    sizes="(min-width: 860px) 38vw, 100vw"
-                    className="aspect-[4/3] w-full object-cover"
-                  />
-                </a>
-                <div className="flex items-center justify-between gap-3 p-[18px]">
-                  <div>
-                    <div className="font-display text-2xl">{t.cardMetric}</div>
-                    <div className="font-mono text-xs text-[#6b655d]">{t.cardMeta}</div>
-                  </div>
-                  <Chip className="bg-green text-white">SEO ↑</Chip>
-                </div>
-              </div>
-              <div className="nb-card nb-lift absolute bottom-[-26px] left-[-26px] max-w-[210px] bg-orange p-4 text-white max-sm:relative max-sm:bottom-auto max-sm:left-auto max-sm:mt-4">
-                <div className="font-mono text-[11px] uppercase tracking-mono opacity-90">{t.aiBadge}</div>
-                <div className="mt-1 font-display text-[22px] leading-none">{t.aiMetric}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Marquee items={t.marquee} />
-
-      <section className="section bg-ink">
-        <div className="wrap">
-          <div className="grid border-3 border-cream min-[460px]:grid-cols-2 min-[980px]:grid-cols-4">
-            {t.statsStrip.map(([value, label], index) => (
-              <div key={label} className={cn("border-b-3 border-cream p-7 min-[980px]:border-b-0 min-[980px]:border-r-3", index === t.statsStrip.length - 1 && "border-b-0 min-[980px]:border-r-0")}>
-                <div className="font-display text-[clamp(48px,6vw,76px)] leading-none text-orange">{value}</div>
-                <div className="mt-2 font-mono text-[13px] uppercase tracking-mono text-cream">{label}</div>
-              </div>
-            ))}
-          </div>
-          <p className="mt-3.5 font-mono text-xs text-[#8a857d]">{t.statsNote}</p>
-        </div>
-      </section>
-
-      <section id="servicii" className="section">
-        <div className="wrap">
-          <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
-            <SectionTitle eyebrow={t.servicesEyebrow} title={t.servicesTitle} />
-            <NbButton href={`/${locale}/servicii`}>{t.allServices} →</NbButton>
-          </div>
-          <div className="overflow-hidden border-3 border-ink bg-paper shadow-nb">
-            {services[locale].map((service, index) => (
-              <Link
-                href={`/${locale}/servicii#${service.key}`}
-                key={service.key}
-                className="group grid grid-cols-[64px_1fr_auto] items-center gap-5 border-b-3 border-ink p-7 text-inherit no-underline transition-colors last:border-b-0 hover:bg-orange hover:text-white max-sm:grid-cols-[1fr_auto]"
-              >
-                <span className="font-display text-[34px] text-orange group-hover:text-white max-sm:hidden">{String(index + 1).padStart(2, "0")}</span>
-                <div>
-                  <h3 className="font-display text-3xl uppercase">{service.title}</h3>
-                  <p className="mt-1.5 max-w-[560px] text-[#5c564e] group-hover:text-white/90">{service.short}</p>
-                </div>
-                <span className="font-display text-[34px]">→</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section border-y-3 border-ink bg-lilac">
-        <div className="wrap">
-          <SectionTitle eyebrow={t.processEyebrow} title={t.processTitle} />
-          <div className="mt-12 grid gap-5 min-[620px]:grid-cols-2 min-[980px]:grid-cols-4">
-            {t.process.map(([title, text], index) => (
-              <div key={title} className={cn("nb-card nb-lift p-6", index === 3 && "bg-orange text-white")}>
-                <span className={cn("font-display text-[46px]", index === 3 ? "text-white" : "text-orange")}>{String(index + 1).padStart(2, "0")}</span>
-                <h3 className="mt-2 font-display text-2xl uppercase">{title}</h3>
-                <p className={cn("mt-2 text-[15px]", index === 3 ? "text-white/90" : "text-[#5c564e]")}>{text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="portofoliu" className="section">
-        <div className="wrap">
-          <div className="mb-8">
-            <SectionTitle eyebrow={t.portfolioEyebrow} title={t.portfolioTitle} />
-          </div>
-          <PortfolioFilter locale={locale} />
-        </div>
-      </section>
-
-      <section className="section border-t-3 border-ink bg-ink text-cream">
-        <div className="wrap max-w-[900px]">
-          <div className="mb-12">
-            <SectionTitle eyebrow={t.faqEyebrow} title={t.faqTitle} centered dark />
-          </div>
-          <Accordion items={faqs[locale]} />
-        </div>
-      </section>
-
-      <section className="section border-y-3 border-ink bg-orange text-white">
-        <div className="wrap max-w-[820px] text-center">
-          <h2 className="display whitespace-pre-line text-[clamp(40px,6.5vw,80px)] leading-[1.14]">{t.newsletterTitle}</h2>
-          <p className="mx-auto mt-4 max-w-[520px] text-[19px] opacity-95">{t.newsletterText}</p>
-          <form className="mx-auto mt-7 flex max-w-[540px] flex-wrap justify-center gap-3.5">
-            <input className="field min-w-[240px] flex-1" type="email" placeholder={t.newsletterPlaceholder} aria-label="Email" />
-            <NbButton variant="ink" size="lg" type="submit">{t.newsletterCta} →</NbButton>
-          </form>
-        </div>
-      </section>
-    </>
-  );
-}
-
-function Marquee({ items }: { items: readonly string[] }) {
-  const doubled = [...items, ...items];
-  return (
-    <div className="marquee" aria-hidden="true">
-      <div className="marquee-track">
-        {doubled.map((item, index) => (
-          <span key={`${item}-${index}`}>
-            {item}
-            <span className="dot">●</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
+import { services } from "@/lib/site";
+export async function generateMetadata({params}:{params:Promise<{locale:string}>}):Promise<Metadata>{const {locale}=await params;return pageMetadata(locale==="en"?"en":"ro","",locale==="en"?'Bloc — Websites, SEO and AI that bring customers':'Bloc — Site-uri, SEO și AI care aduc clienți',locale==="en"?'Web development, SEO and AI automation for businesses that want qualified enquiries.':'Dezvoltare web, SEO și automatizări AI pentru afaceri care vor cereri relevante.')}
+export default async function Home({params}:{params:Promise<{locale:string}>}){const {locale:raw}=await params;const locale:Locale=isLocale(raw)?raw:"ro";const ro=locale==="ro";return <>
+<section className="shell" style={{paddingTop:"clamp(52px,9vw,116px)"}}><div className="meta" style={{display:"flex",alignItems:"center",gap:11}}><span style={{height:7,width:7,borderRadius:"50%",background:"var(--accent)"}}/>{ro?"Web · AI · SEO — România, UK, Europa":"Web · AI · SEO — Romania, UK, Europe"}</div><h1 className="hero-title">{ro?<>Site-ul tău e o<br/>broșură. Noi facem<br/><em className="serif accent">mașini de clienți</em>.</>:<>Your website is a<br/>brochure. We build<br/><em className="serif accent">customer engines</em>.</>}</h1><div className="split" style={{alignItems:"end",marginTop:"clamp(30px,5vw,60px)"}}><p className="lead" style={{margin:0}}>{ro?"Dezvoltare, SEO și automatizări AI pentru afaceri care măsoară în cereri de ofertă, nu în complimente. Începem cu o analiză gratuită: îți spunem direct ce pierzi și cum se poate repara.":"Web, SEO and AI automation for businesses that measure qualified enquiries, not compliments. We start with a free review: what is being lost and what can be fixed."}</p><div><div style={{display:"flex",flexWrap:"wrap",gap:10}}><Link className="btn" href={`/${locale}/contact`}>{ro?"Dă-mi analiza":"Get my review"} →</Link><a className="btn btn-outline" href="#roast">{ro?"Ce primesc?":"What do I get?"}</a></div><p className="meta" style={{marginTop:14}}>{ro?"Analiză video + recomandări scrise.":"Video review + written recommendations."}</p></div></div><div className="stat-strip"><div><strong>4.9/5</strong><span className="meta">{ro?"Satisfacție clienți":"Client satisfaction"}</span></div><div><strong>14 {ro?"zile":"days"}</strong><span className="meta">{ro?"Brief → lansare*":"Brief → launch*"}</span></div><div><strong>48h</strong><span className="meta">{ro?"Pentru analiză*":"For your review*"}</span></div><div><strong>0 €</strong><span className="meta">{ro?"Primul pas":"First step"}</span></div></div><p className="meta" style={{fontSize:10,marginTop:10}}>* {ro?"Timpi orientativi pentru proiectele eligibile; confirmăm disponibilitatea la discuție.":"Indicative timing for eligible projects; availability confirmed during our conversation."}</p></section>
+<div className="marquee" style={{marginTop:50}}><div className="marquee-track">{[0,1].map(n=><div className="marquee-set" key={n}><span>{ro?"Construim, nu promitem":"We build, not promise"}</span><b>●</b><span>{ro?"Cod, nu slide-uri":"Code, not slide decks"}</span><b>●</b><span>{ro?"Rezultate, nu mockup-uri":"Results, not mockups"}</span><b>●</b><span>{ro?"Adevăr, nu jargon":"Truth, not jargon"}</span><b>●</b></div>)}</div></div>
+<section className="shell section"><Eyebrow>// {ro?"Trei lucruri pe care agențiile nu ți le spun":"Three things agencies rarely tell you"}</Eyebrow><h2 className="display" style={{maxWidth:"17ch"}}>{ro?<>Ai un site. Dar ai <em className="serif">clienți</em> de pe el?</>:<>You have a site. Does it bring <em className="serif">customers</em>?</>}</h2><div className="grid3" style={{marginTop:"clamp(38px,6vw,76px)"}}>{(ro?[["Redesign-ul nu e o strategie.","Un site mai frumos cu aceleași argumente, în aceeași ordine, dă aceleași rezultate."],["Omul scanează și pleacă.","Dacă nu vede rapid ce câștigă, restul paginii poate să nu mai conteze."],["Faci manual ce poate fi automatizat.","Oferte rescrise, răspunsuri repetate și programări târzii consumă timp din marja ta."]]:[["A redesign is not a strategy.","A prettier site with the same offer and argument may bring the same results."],["People scan and leave.","If the value is not clear fast, the rest of the page may never be read."],["You do work that could be automated.","Repeated proposals and replies consume time you could spend with customers."]]).map(([title,text],i)=><div className="panel" key={title}><span className="number">0{i+1}</span><h3>{title}</h3><p>{text}</p></div>)}</div></section>
+<ConversionCalculator locale={locale}/>
+<section id="roast" className="paper section"><div className="shell"><Eyebrow>// {ro?"Primul pas — 0 €":"First step — €0"}</Eyebrow><h2 className="display" style={{fontSize:"clamp(48px,8vw,124px)"}}>{ro?"Analiza.":"The review."}</h2><p className="lead">{ro?"Îți arătăm unde mesajul, structura sau viteza îți îngreunează vânzarea. Primești o direcție concretă înainte să discutăm despre proiect.":"We show where message, structure or speed gets in the way of sales. You get a useful direction before we talk about a project."}</p><div className="grid3" style={{margin:"45px 0"}}>{(ro?[["Vedem site-ul cu ochii clientului","Ce înțelege imediat. Ce rămâne neclar."],["Găsim blocajele","Mesaj, traseu, viteză și contact."],["Prioritizăm schimbările","Ce merită făcut întâi și de ce."]]:[["See through a buyer's eyes","What is clear and what is confusing."],["Find the bottlenecks","Message, journey, speed and contact."],["Prioritise changes","What to fix first and why."]]).map(([title,text],i)=><div className="panel" key={title}><span className="number">0{i+1}</span><h3>{title}</h3><p>{text}</p></div>)}</div><Link className="btn btn-dark" href={`/${locale}/contact`}>{ro?"Cere analiza gratuită":"Request your free review"} →</Link></div></section>
+<section className="shell section" style={{paddingBottom:0}}><Eyebrow>// {ro?"Trei moduri de a lucra":"Three ways to work together"}</Eyebrow><h2 className="display" style={{maxWidth:850}}>{ro?"Trei moduri de a lucra. Atât.":"Three ways to work together. That's it."}</h2><p className="lead">{ro?"Preț orientativ, scop clar. Suma finală se stabilește după ce înțelegem proiectul.":"Indicative pricing and clear scope. We agree the final figure after understanding your project."}</p><div className="grid3" style={{marginTop:48}}>{[
+{label:ro?"01 / Lansare":"01 / Launch",name:ro?"Ieși în piață cu mesajul corect":"Launch with the right message",price:ro?"de la 1.400 €":"from €1,400",description:ro?"Landing sau site de prezentare construit în jurul deciziei clientului.":"A landing page or company site built around the buyer's decision.",points:ro?["Copy orientat spre cereri","Dezvoltare Next.js responsive","Fundație SEO","Conținut ușor de administrat"]:["Enquiry-focused copy","Responsive Next.js build","SEO foundation","Easy content updates"]},
+{label:ro?"02 / Creștere":"02 / Growth",name:ro?"Un canal care se îmbunătățește lunar":"A channel that improves each month",price:ro?"de la 900 € / lună":"from €900 / month",description:ro?"Lucrăm continuu pe căutare, conținut și conversie.":"Ongoing work on search, content and conversion.",points:ro?["SEO și conținut lunar","Teste pe paginile importante","Automatizări prioritizate","Raport pe schimbări și impact"]:["Monthly SEO and content","Tests on key pages","Prioritised automation","Clear impact reports"]},
+{label:ro?"03 / Echipă":"03 / Team",name:ro?"Dezvoltare și AI la cerere":"Development and AI on demand",price:ro?"de la 3.500 € / lună":"from €3,500 / month",description:ro?"Pentru companii care au nevoie de capacitate de livrare fără angajări imediate.":"For companies needing delivery capacity without an immediate hire.",points:ro?["Sprinturi cu scop stabilit","Produs, dev și integrări AI","Colaborare în fus orar european","Livrabile definite în ofertă"]:["Scoped delivery sprints","Product, dev and AI integration","European time zone","Defined deliverables"]}
+].map((offer,i)=><article className={`offer-card ${i===1?"featured":""}`} key={offer.label}><div className="meta accent">{offer.label}</div><h3>{offer.name}</h3><strong>{offer.price}</strong><p>{offer.description}</p><ul>{offer.points.map(point=><li key={point}>{point}</li>)}</ul><Link className={i===1?"btn":"btn btn-outline"} href={`/${locale}/contact`}>{ro?"Discutăm oferta":"Discuss this option"} →</Link></article>)}</div></section>
+<section className="shell section"><Eyebrow>// {ro?"Dacă mergem mai departe":"If we work together"}</Eyebrow><h2 className="display" style={{maxWidth:900}}>{ro?"Cinci servicii. Un singur scop.":"Five services. One goal."}</h2><p className="lead">{ro?"Mai multe cereri bune, mai puțin timp pierdut și un sistem pe care îl poți îmbunătăți.":"More qualified enquiries, less wasted time and a system you can improve."}</p><div style={{marginTop:45,borderTop:"1px solid var(--line)"}}>{services[locale].map((s,i)=><Link className="service-row" key={s.slug} href={`/${locale}/servicii/${s.slug}`}><span className="number">0{i+1}</span><div><h3>{s.name}</h3><p>{s.short}</p></div><span className="row-arrow" aria-hidden="true">↗</span></Link>)}</div></section>
+<section id="rezultate" className="section rule" style={{background:"var(--bg2)"}}><div className="shell"><Eyebrow>// {ro?"Rezultate":"Results"}</Eyebrow><h2 className="display" style={{maxWidth:950}}>{ro?<>Site-uri live, nu <em className="serif">mockup-uri</em> pe Dribbble.</>:<>Live sites, not <em className="serif">mockups</em> on Dribbble.</>}</h2><div className="project-grid" style={{marginTop:50}}>{[
+{image:"primvet.jpg",name:"Prim Vet",domain:"primvet.ro",url:"https://www.primvet.ro/",tags:"Web · SEO local",text:ro?"Experiență veterinară prezentată prin trasee scurte către programare și cabinet.":"Veterinary expertise presented through clear paths to appointments and the clinic."},
+{image:"rawmina.jpg",name:"RawMina",domain:"rawmina.com",url:"https://www.rawmina.com/",tags:"Branding · E-commerce",text:ro?"Un univers vizual cald și un catalog care pune produsele în valoare.":"A warm visual world and a product catalogue designed to make the offer clear."},
+{image:"bhstudio.jpg",name:"Better Homes",domain:"bhstudio.co.uk",url:"https://bhstudio.co.uk/",tags:"Web · SEO · UK",text:ro?"Ghiduri de cost și studii de caz așezate în jurul deciziei proprietarului.":"Cost guides and case studies built around the homeowner's decision."},
+{image:"miniclinic.jpg",name:"MiniClinic",domain:"miniclinic-theta.vercel.app",url:"https://miniclinic-theta.vercel.app/",tags:"Web · SEO local",text:ro?"Serviciile clinicii organizate după întrebările părinților.":"Clinic services organised around parents' questions."}
+].map(project=><article className="project-card" key={project.name}><a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`${project.name} — ${ro?"vezi site-ul":"view website"}`}><Image src={`/projects/${project.image}`} alt={`${ro?"Captură site":"Website screenshot"} ${project.name}`} width={1280} height={720} sizes="(max-width: 820px) 100vw, 50vw" className="project-image"/></a><div className="meta">{project.tags}</div><h3>{project.name}</h3><p>{project.text}</p><div className="project-bottom"><span className="meta">{project.domain}</span><a className="link-arrow" href={project.url} target="_blank" rel="noopener noreferrer">{ro?"Vezi live":"View live"} ↗</a></div></article>)}</div></div></section>
+<section className="shell section"><Eyebrow>// {ro?"Cum decurge":"The process"}</Eyebrow><h2 className="display" style={{maxWidth:860,marginBottom:48}}>{ro?"Patru pași. Primul e gratuit.":"Four steps. The first is free."}</h2><div className="process-grid">{(ro?[["01 / Analiză","Vedem oferta, site-ul și blocajele înainte de a propune ceva."],["02 / Plan","Stabilim ce construim, în ce ordine și cum evaluăm rezultatul."],["03 / Livrare","Construim în etape clare. Vezi progresul și poți da feedback."],["04 / Îmbunătățire","Lansăm, măsurăm și reparăm ce nu funcționează."]]:[["01 / Review","We inspect the offer, website and bottlenecks before proposing work."],["02 / Plan","We agree what to build, in what order and how to measure it."],["03 / Delivery","We build in clear stages. You see progress and give feedback."],["04 / Improvement","We launch, measure and fix what underperforms."]]).map(([title,body])=><div className="panel" key={title}><span className="number">{title}</span><h3>{title.split(" / ")[1]}</h3><p>{body}</p></div>)}</div></section>
+<section className="shell section"><Eyebrow>// FAQ</Eyebrow><h2 className="display" style={{marginBottom:45}}>{ro?"Răspunsuri pe șleau.":"Straight answers."}</h2><Faq items={ro?[["Cât costă un proiect?","Depinde de obiectiv, complexitate și ce există deja. După analiza inițială primești o propunere cu livrabile și preț agreat înainte de lucru."],["Cât durează?","Un landing simplu poate avea alt calendar decât un portal sau un proiect SEO. Îți dăm etapele și termenele în ofertă."],["Trebuie să știu exact ce îmi trebuie?","Nu. Spune-ne unde pierzi timp sau clienți. Clarificăm împreună ce merită construit."],["Cine deține ce construiți?","Livrabilele și drepturile de utilizare sunt stabilite transparent în contract."]]:[["How much does a project cost?","It depends on goals, complexity and what already exists. After the initial review you get a proposal with clear scope and price."],["How long does it take?","A simple landing page and a complex portal have different timelines. We set milestones in the proposal."],["Do I need a detailed brief?","No. Tell us where you lose time or customers. We help define the right scope."],["Who owns the work?","Deliverables and usage rights are set clearly in the agreement."]]}/></section>
+<FinalCta locale={locale} title={ro?"Hai să vedem ce te costă site-ul actual.":"Let's see what your current site is costing you."} text={ro?"Ne trimiți adresa și câteva rânduri. Îți răspundem cu următorul pas util.":"Send your URL and a few lines. We will reply with a useful next step."} button={ro?"Cere analiza":"Request a review"}/></>}

@@ -1,64 +1,8 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
-import { PageHeader } from "@/components/primitives";
-import { copy } from "@/lib/content";
+import { PageIntro } from "@/components/ui";
 import { isLocale, type Locale } from "@/lib/i18n";
-
-export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: rawLocale } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "ro";
-  const t = copy[locale].contactPage;
-
-  return (
-    <>
-      <PageHeader chip={t.chip} title={t.title} text={t.text} />
-
-      <section className="section">
-        <div className="wrap grid items-start gap-8 min-[860px]:grid-cols-[1.3fr_.9fr]">
-          <div className="nb-card p-[clamp(28px,4vw,44px)] shadow-nb-lg">
-            <ContactForm locale={locale} />
-          </div>
-
-          <div>
-            <div className="nb-card bg-ink p-8 text-cream">
-              <h2 className="display text-[28px] text-cream">{t.direct}</h2>
-              <ContactInfo icon="@" label="Email" value="salut@bloc.ro" href="mailto:salut@bloc.ro" />
-              <ContactInfo icon="☏" label={t.phone.replace(" *", "")} value="+40 700 000 000" href="tel:+40700000000" />
-              <div className="flex gap-4 border-t-2 border-white/10 py-5">
-                <span className="grid h-[46px] w-[46px] shrink-0 place-items-center border-2 border-cream bg-orange font-display text-[22px] text-white">B</span>
-                <div>
-                  <div className="font-mono text-[11px] uppercase tracking-mono text-[#a39d93]">{t.office}</div>
-                  <span className="text-[17px] font-semibold">Str. Memorandumului 12<br />Cluj-Napoca, România</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="nb-card mt-6 bg-yellow p-7">
-              <div className="font-display text-2xl uppercase">{t.schedule}</div>
-              <div className="mt-3.5 flex justify-between border-b-2 border-ink py-2">
-                <span className="font-semibold">{t.weekdays}</span>
-                <span className="font-mono">09:00 – 18:00</span>
-              </div>
-              <div className="flex justify-between py-2">
-                <span className="font-semibold">{t.weekend}</span>
-                <span className="font-mono">{t.emergency}</span>
-              </div>
-              <p className="mt-3.5 text-sm text-[#5c4d10]">{t.response}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-function ContactInfo({ icon, label, value, href }: { icon: string; label: string; value: string; href: string }) {
-  return (
-    <div className="flex gap-4 border-b-2 border-white/10 py-5">
-      <span className="grid h-[46px] w-[46px] shrink-0 place-items-center border-2 border-cream bg-orange font-display text-[22px] text-white">{icon}</span>
-      <div>
-        <div className="font-mono text-[11px] uppercase tracking-mono text-[#a39d93]">{label}</div>
-        <a href={href} className="text-[17px] font-semibold text-cream no-underline">{value}</a>
-      </div>
-    </div>
-  );
-}
+export async function generateMetadata({params}:{params:Promise<{locale:string}>}):Promise<Metadata>{const {locale}=await params;return pageMetadata(locale==="en"?"en":"ro","/contact",locale==="en"?'Contact — Bloc':'Contact — Bloc',locale==="en"?'Contact Bloc about web, SEO, AI or branding.':'Scrie echipei Bloc despre site, SEO, AI sau branding.')}
+export default async function Contact({params}:{params:Promise<{locale:string}>}){const {locale:raw}=await params;const locale:Locale=isLocale(raw)?raw:"ro";const ro=locale==="ro";return <><PageIntro locale={locale} section={ro?"Contact":"Contact"} title={ro?"Scrie-ne. Începem cu problema.":"Write to us. Start with the problem."} accent={ro?"problema":"problem"} text={ro?"Nu ai nevoie de un brief perfect. Spune-ne ce vinzi și unde te doare. Restul aflăm împreună.":"You do not need a perfect brief. Tell us what you sell and what is not working. We will find the rest together."}/><section className="shell section-tight split" style={{paddingTop:0}}><ContactForm locale={locale}/><aside><div className="panel alt"><div className="meta accent">{ro?"Preferi să vorbești direct?":"Prefer to speak directly?"}</div><h2 style={{fontSize:"clamp(24px,3vw,38px)",lineHeight:1.1,letterSpacing:"-.035em"}}>{ro?"O discuție scurtă, fără prezentare.":"A short conversation, no pitch deck."}</h2><p className="body">{ro?"Ne uităm pe informațiile trimise înainte de call, ca să intrăm direct în partea utilă.":"We review what you send before the call so we can get straight to the useful part."}</p><a className="btn btn-light" href="mailto:salut@bloc.ro?subject=Vreau%20s%C4%83%20discut%C4%83m">{ro?"Scrie direct":"Email us directly"} →</a></div><div className="panel"><div className="meta">{ro?"Contact":"Contact"}</div><p className="body"><a href="mailto:salut@bloc.ro">salut@bloc.ro</a></p><p className="body">Cluj-Napoca · România</p></div><div className="panel"><div className="meta">{ro?"Ce urmează":"What happens next"}</div><p className="body">01 · {ro?"Citim mesajul și contextul.":"We read your message and context."}</p><p className="body">02 · {ro?"Îți răspundem personal.":"We respond personally."}</p><p className="body">03 · {ro?"Stabilim împreună pasul util.":"We agree on the useful next step."}</p></div><p className="body" style={{fontSize:13}}>{ro?"Pentru detalii despre datele personale, citește":"For personal data details, read our"} <Link className="accent" href={`/${locale}/confidentialitate`}>{ro?"politica de confidențialitate":"privacy policy"}</Link>.</p></aside></section></>}

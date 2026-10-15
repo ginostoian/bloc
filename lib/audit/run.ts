@@ -289,7 +289,7 @@ export async function runAudit(input: string): Promise<AuditResult> {
   const hasAddress = schema.nodes.some(n => n.address) || /(str\.|strada|bulevardul|bd\.|street|road|avenue|suite|nr\.\s*\d|\b\d{5,6}\b.*(românia|romania|uk|united kingdom))/i.test(bodyText);
   add("address", "trust", hasAddress ? "pass" : "warn", "medium", hasAddress ? L("prezentă", "present") : L("lipsă", "missing"));
   const privacy = links.some(a => /privacy|confidential|gdpr|cookie|date-personale|politica/i.test((a.getAttribute("href") || "") + " " + a.text));
-  add("privacyPolicy", "trust", privacy ? "pass" : "fail", "medium", privacy ? L("găsită", "found") : L("lipsă", "missing"));
+  add("privacyPolicy", "compliance", privacy ? "pass" : "fail", "medium", privacy ? L("găsită", "found") : L("lipsă", "missing"));
   const ctaRe = /(contact|book|get|start|request|quote|call|buy|order|try|demo|schedul|programea|cere|solicit|comand|cumpăr|sună|rezerv|începe|ofert|abon|sign up|înscrie)/i;
   const ctas = [...root.querySelectorAll("a, button")].filter(el => ctaRe.test(el.text.trim()) && el.text.trim().length < 40).length;
   add("ctas", "trust", ctas >= 3 ? "pass" : ctas >= 1 ? "warn" : "fail", "high", `${ctas}`);
@@ -304,10 +304,37 @@ export async function runAudit(input: string): Promise<AuditResult> {
   add("analytics", "trust", analytics.length ? "pass" : "warn", "medium", analytics.length ? analytics.join(", ") : L("nedetectat", "not detected"));
   const consent = /cookiebot|onetrust|cookieyes|complianz|iubenda|cookie-?consent|cookie-?banner|cookie-?notice|usercentrics|termly|axeptio|klaro/i.test(lower);
   const trackers = analytics.filter(a => a !== "Plausible").length > 0;
-  add("cookieConsent", "trust", !trackers || consent ? "pass" : "warn", "medium", consent ? L("detectat", "detected") : trackers ? L("trackere fără banner detectat", "trackers without a detected banner") : L("fără trackere", "no trackers"));
+  add("cookieConsent", "compliance", !trackers || consent ? "pass" : "warn", "medium", consent ? L("detectat", "detected") : trackers ? L("trackere fără banner detectat", "trackers without a detected banner") : L("fără trackere", "no trackers"));
   const years = [...bodyText.matchAll(/(?:©|copyright)\s*(?:\d{4}\s*[-–]\s*)?(\d{4})/gi)].map(m => Number(m[1]));
   const thisYear = new Date().getFullYear();
   if (years.length) add("freshFooter", "trust", Math.max(...years) >= thisYear - 1 ? "pass" : "warn", "low", `© ${Math.max(...years)}`);
+
+  // ---- LEGAL COMPLIANCE ----
+  const romanian = /\.ro$/i.test(final.hostname) || (lang || "").toLowerCase().startsWith("ro");
+  const isStore = ["Shopify", "WooCommerce", "PrestaShop"].includes(detectPlatform(html, page.headers) || "") || schema.types.some(t => /^(Product|Offer|ProductGroup)$/i.test(t)) ||
+    /add[-_ ]?to[-_ ]?cart|adaug[aă] [îi]n co[sș]|co[sș]ul meu|cos de cumparaturi|\/cart\b|\/checkout\b|\/cos\b/i.test(lower.slice(0, 400_000));
+  const linkText = (a: HTMLElement) => `${a.getAttribute("href") || ""} ${a.text} ${a.querySelector("img")?.getAttribute("alt") || ""}`;
+  const hasLink = (re: RegExp) => links.some(a => re.test(linkText(a)));
+  const terms = hasLink(/termeni|terms|conditii|condiții|conditions|\bt&c\b|agb\b/i);
+  add("termsPage", "compliance", terms ? "pass" : isStore ? "fail" : "warn", isStore ? "high" : "medium", terms ? L("găsiți", "found") : L("lipsă", "missing"));
+  if (romanian) {
+    const anpcLinks = links.filter(a => /anpc\.ro/i.test(a.getAttribute("href") || ""));
+    const sal = anpcLinks.some(a => /sal/i.test(linkText(a)));
+    add("anpcSal", "compliance", sal ? "pass" : anpcLinks.length ? "warn" : isStore ? "fail" : "warn", isStore ? "high" : "medium", sal ? L("link ANPC SAL găsit", "ANPC SAL link found") : anpcLinks.length ? L("link ANPC fără SAL", "ANPC link without SAL") : L("lipsă", "missing"));
+  }
+  if (hasLink(/ec\.europa\.eu\/consumers\/odr/i)) add("odrOutdated", "compliance", "warn", "low", L("link spre platforma SOL/ODR închisă", "link to the closed ODR platform"));
+  const cui = /\b(CUI|CIF|C\.U\.I\.?|cod (unic de înregistrare|fiscal))\s*[:.]?\s*(RO)?\s*\d{4,10}\b|\bRO\s?\d{6,10}\b/i.test(bodyText);
+  const regCom = /\bJ\s?\d{1,2}\s*\/\s*\d{1,7}\s*\/\s*\d{4}\b|\bJ\d{4}\d{6,}[A-Z0-9]*\b|nr\.? (de )?(ordine|înregistrare) (în|la) registrul comer/i.test(bodyText);
+  const foreignId = /(company (no|number|registration)|registered in (england|scotland|wales|ireland)|registered office|vat (no|number|reg)|reg(istration)?\.? no|handelsregister|kvk|siren|siret|ust-?id)/i.test(bodyText);
+  const idCount = romanian ? Number(cui) + Number(regCom) : Number(foreignId);
+  add("companyDetails", "compliance", romanian ? (idCount === 2 ? "pass" : idCount === 1 ? "warn" : "fail") : (foreignId ? "pass" : "warn"), "medium",
+    romanian ? L([cui && "CUI", regCom && "Nr. Reg. Com."].filter(Boolean).join(" + ") || "lipsă", [cui && "Tax ID (CUI)", regCom && "Trade register no."].filter(Boolean).join(" + ") || "missing") : foreignId ? L("găsite", "found") : L("lipsă", "missing"));
+  if (isStore) {
+    const returns = hasLink(/retur|return|refund|rambursa|retragere|withdraw/i) || /drept(ul)? de retragere|14 zile|right of withdrawal|14[- ]day return/i.test(bodyText);
+    add("returnsPolicy", "compliance", returns ? "pass" : "fail", "high", returns ? L("găsită", "found") : L("lipsă", "missing"));
+    const delivery = hasLink(/livrare|shipping|delivery|transport/i);
+    add("deliveryInfo", "compliance", delivery ? "pass" : "warn", "medium", delivery ? L("găsite", "found") : L("lipsă", "missing"));
+  }
 
   // ---- Scores ----
   const factor: Record<Status, number> = { pass: 1, warn: 0.5, fail: 0 };

@@ -4,7 +4,7 @@ import { posts, serviceKeys } from "@/lib/site";
 import { siteUrl } from "@/lib/seo";
 
 const pages: [string, number, MetadataRoute.Sitemap[number]["changeFrequency"]][] = [
-  ["", 1, "weekly"], ["/servicii", 0.9, "monthly"], ["/preturi", 0.9, "monthly"], ["/audit", 0.9, "monthly"], ["/rezultate", 0.7, "monthly"],
+  ["", 1, "weekly"], ["/servicii", 0.9, "monthly"], ["/preturi", 0.9, "monthly"], ["/audit", 0.9, "monthly"], ["/audit/duel", 0.8, "monthly"], ["/rezultate", 0.7, "monthly"],
   ["/despre", 0.6, "monthly"], ["/contact", 0.7, "yearly"], ["/blog", 0.7, "weekly"], ["/confidentialitate", 0.2, "yearly"], ["/termeni", 0.2, "yearly"]
 ];
 

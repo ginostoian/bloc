@@ -12,6 +12,8 @@ Next.js App Router site with Romanian and English routes (`/ro`, `/en`). Marketi
 | `/[locale]/preturi` | Public pricing, project and monthly plans, payment FAQ |
 | `/[locale]/rezultate` | Live projects with challenge / what we built |
 | `/[locale]/audit` | Free website audit tool |
+| `/[locale]/audit/duel` | Head-to-head audit: your site vs a competitor |
+| `/[locale]/audit/scor/[token]` | Shareable result page (noindex) with a generated score card image |
 | `/[locale]/despre`, `/contact`, `/blog`, legal pages | |
 | `/llms.txt`, `/robots.txt`, `/sitemap.xml`, `/opengraph-image` | Search and AI crawler files |
 
@@ -28,6 +30,9 @@ Every page outputs one JSON-LD `@graph` with `Organization` + `ProfessionalServi
 - Requests go through `lib/audit/fetch.ts`, which blocks private, loopback and link-local addresses at DNS-resolution time and limits ports, redirects, size and time.
 - Results are cached per URL for 30 minutes per server instance. Rate limits are per instance (8 audits / 10 min per IP; 5 reports / hour per IP, 3 / day per email). Put a shared store (for example Upstash Redis) in front before heavy paid traffic.
 - Speed is measured from server response time, page weight (resources sampled with HEAD requests) and request count. The 4G figure is an estimate, not a Lighthouse score.
+- **Legal compliance** is its own category: terms, privacy policy, cookie consent before trackers, company identification (CUI and trade register number for Romanian sites, company/VAT numbers elsewhere), the ANPC SAL link for `.ro` or Romanian-language sites, a warning for links to the EU ODR platform (closed July 2025), and returns and delivery pages when the site looks like a store. It checks that these elements are present, not that their content is correct, and the UI and PDF say it is not legal advice. Confirm the current ANPC requirements with a lawyer before promoting this check.
+- **Score cards**: each audit and head-to-head returns a signed token. `/api/audit/card/[token]` renders a 1200×630 PNG for LinkedIn, WhatsApp and X previews, and `/[locale]/audit/scor/[token]` is the page people share. Tokens are HMAC-signed with `AUDIT_SIGNING_SECRET`, so scores cannot be forged under the Bloc brand. Without that variable in production, the share buttons are hidden.
+- **Head-to-head**: `POST /api/audit/duel` audits two sites in parallel (counted as two audits for rate limiting) and returns both results plus the checks each one fails that the other passes.
 - For local testing against `localhost`, set `AUDIT_ALLOW_PRIVATE_HOSTS=1` with `npm run dev`. It is ignored in production builds.
 
 ## Environment
@@ -38,6 +43,7 @@ Every page outputs one JSON-LD `@graph` with `Organization` + `ProfessionalServi
 | `RESEND_API_KEY` | Sends contact enquiries, audit reports and lead notifications. |
 | `CONTACT_FROM_EMAIL` | Sender on a Resend-verified domain, for example `Gino de la Bloc <salut@bloc.ro>`. |
 | `CONTACT_TO_EMAIL` | Team inbox for enquiries and audit leads. Also the reply-to on report emails. |
+| `AUDIT_SIGNING_SECRET` | Long random string used to sign shareable score cards, for example from `openssl rand -base64 32`. Required in production for sharing. |
 
 Without the Resend variables, the contact form falls back to a prepared `mailto:` and the audit report is offered as a download only (no email, no team notification).
 

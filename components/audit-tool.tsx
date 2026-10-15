@@ -6,12 +6,27 @@ import type { Locale } from "@/lib/i18n";
 import type { Teaser } from "@/lib/audit/teaser";
 import type { Category } from "@/lib/audit/types";
 
-const catNames: Record<Locale, Record<Category, string>> = {
-  ro: { performance: "Viteză", seo: "SEO", aeo: "Căutare AI", security: "Securitate", accessibility: "Accesibilitate", trust: "Încredere" },
-  en: { performance: "Speed", seo: "SEO", aeo: "AI search", security: "Security", accessibility: "Accessibility", trust: "Trust" }
+export const catNames: Record<Locale, Record<Category, string>> = {
+  ro: { performance: "Viteză", seo: "SEO", aeo: "Căutare AI", trust: "Încredere", compliance: "Legal", security: "Securitate", accessibility: "Accesibilitate" },
+  en: { performance: "Speed", seo: "SEO", aeo: "AI search", trust: "Trust", compliance: "Legal", security: "Security", accessibility: "Accessibility" }
 };
-const order: Category[] = ["performance", "seo", "aeo", "trust", "security", "accessibility"];
-const tone = (s: number) => (s >= 80 ? "good" : s >= 55 ? "ok" : "bad");
+export const order: Category[] = ["performance", "seo", "aeo", "trust", "compliance", "security", "accessibility"];
+export const tone = (s: number) => (s >= 80 ? "good" : s >= 55 ? "ok" : "bad");
+
+/** Share buttons for a signed score card. */
+export function ShareBar({ token, locale, text }: { token: string; locale: Locale; text: string }) {
+  const ro = locale === "ro"; const [copied, setCopied] = useState(false);
+  const url = typeof window === "undefined" ? "" : `${window.location.origin}/${locale}/audit/scor/${token}`;
+  const enc = encodeURIComponent;
+  return <div className="share-bar">
+    <span className="meta">{ro ? "Distribuie rezultatul" : "Share the result"}</span>
+    <a className="btn btn-outline" target="_blank" rel="noopener noreferrer" href={`https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}`}>LinkedIn</a>
+    <a className="btn btn-outline" target="_blank" rel="noopener noreferrer" href={`https://wa.me/?text=${enc(`${text} ${url}`)}`}>WhatsApp</a>
+    <a className="btn btn-outline" target="_blank" rel="noopener noreferrer" href={`https://twitter.com/intent/tweet?text=${enc(text)}&url=${enc(url)}`}>X</a>
+    <a className="btn btn-outline" href={`/api/audit/card/${token}?l=${locale}`} download={`bloc-score.png`}>{ro ? "Imagine PNG" : "PNG image"}</a>
+    <button className="btn btn-outline" type="button" onClick={() => { navigator.clipboard?.writeText(url).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }}>{copied ? (ro ? "Copiat ✓" : "Copied ✓") : (ro ? "Copiază linkul" : "Copy link")}</button>
+  </div>;
+}
 
 /** Compact URL field used in heroes: sends people to the audit page, which runs straight away. */
 export function AuditStart({ locale, compact }: { locale: Locale; compact?: boolean }) {
@@ -23,7 +38,7 @@ export function AuditStart({ locale, compact }: { locale: Locale; compact?: bool
   </form>;
 }
 
-function Ring({ score, size = 168 }: { score: number; size?: number }) {
+export function Ring({ score, size = 168 }: { score: number; size?: number }) {
   const r = size / 2 - 9, c = 2 * Math.PI * r;
   return <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className={`ring ${tone(score)}`} role="img" aria-label={`${score}/100`}><circle cx={size / 2} cy={size / 2} r={r} className="ring-track" /><circle cx={size / 2} cy={size / 2} r={r} className="ring-value" strokeDasharray={`${(score / 100) * c} ${c}`} transform={`rotate(-90 ${size / 2} ${size / 2})`} /><text x="50%" y="50%" dominantBaseline="central" textAnchor="middle">{score}</text></svg>;
 }
@@ -115,6 +130,11 @@ export function AuditTool({ locale }: { locale: Locale }) {
         <div><dt className="meta">{ro ? "Greutate pagină" : "Page weight"}</dt><dd>{(data.metrics.pageWeightKb / 1024).toFixed(2)} MB</dd></div>
         <div><dt className="meta">{ro ? "Platformă" : "Platform"}</dt><dd>{data.platform || "—"}</dd></div>
       </dl>
+
+      <div className="audit-actions">
+        {data.share ? <ShareBar token={data.share} locale={locale} text={ro ? `${data.host} a luat ${data.scores.overall}/100 la auditul Bloc. Cât ia site-ul tău?` : `${data.host} scored ${data.scores.overall}/100 on the Bloc website audit. How does yours score?`} /> : null}
+        <Link className="link-arrow" href={`/${locale}/audit/duel?a=${encodeURIComponent(data.host)}`}>{ro ? "Compară cu un concurent" : "Compare with a competitor"} →</Link>
+      </div>
 
       <h3 className="audit-sub">{ro ? "Primele 3 probleme, în ordinea impactului" : "Top 3 issues, by impact"}</h3>
       <ol className="issue-list">{data.top.map(t => <li key={t.id} className={t.status}><span className="pill">{t.status === "fail" ? (ro ? "Critic" : "Critical") : (ro ? "Atenție" : "Improve")}</span><div><strong>{t.title}</strong> <span className="meta">· {t.value}</span><p>{t.why}</p></div></li>)}</ol>

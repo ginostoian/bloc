@@ -185,6 +185,7 @@ function ReportDocument({ r, name, locale }: { r: AuditResult; name: string; loc
                 <Text style={{ fontSize: 16, fontWeight: 800, letterSpacing: -0.4 }}>{categoryCopy[cat][locale].name}</Text>
                 <Text style={{ fontSize: 16, fontWeight: 800, color: scoreColor(r.scores[cat]) }}>{r.scores[cat]}/100</Text>
               </View>
+              {cat === "compliance" ? <Text style={{ fontSize: 7.5, color: C.muted, marginTop: 4 }}>{ro ? "Verificare automată a elementelor obligatorii de pe pagină. Nu reprezintă consultanță juridică." : "An automated check for required elements on the page. Not legal advice."}</Text> : null}
               {list.map(c => {
                 const copy = checkCopy[c.id]?.[locale];
                 if (!copy) return null;

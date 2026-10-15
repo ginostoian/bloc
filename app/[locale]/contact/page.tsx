@@ -1,8 +1,48 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
+import { breadcrumbSchema, brand, pageMetadata, webPageSchema } from "@/lib/seo";
+import { JsonLd } from "@/components/json-ld";
 import { ContactForm } from "@/components/contact-form";
+import { FounderNote } from "@/components/sections";
 import { PageIntro } from "@/components/ui";
 import { isLocale, type Locale } from "@/lib/i18n";
-export async function generateMetadata({params}:{params:Promise<{locale:string}>}):Promise<Metadata>{const {locale}=await params;return pageMetadata(locale==="en"?"en":"ro","/contact",locale==="en"?'Contact — Bloc':'Contact — Bloc',locale==="en"?'Contact Bloc about web, SEO, AI or branding.':'Scrie echipei Bloc despre site, SEO, AI sau branding.')}
-export default async function Contact({params}:{params:Promise<{locale:string}>}){const {locale:raw}=await params;const locale:Locale=isLocale(raw)?raw:"ro";const ro=locale==="ro";return <><PageIntro locale={locale} section={ro?"Contact":"Contact"} title={ro?"Scrie-ne. Începem cu problema.":"Write to us. Start with the problem."} accent={ro?"problema":"problem"} text={ro?"Nu ai nevoie de un brief perfect. Spune-ne ce vinzi și unde te doare. Restul aflăm împreună.":"You do not need a perfect brief. Tell us what you sell and what is not working. We will find the rest together."}/><section className="shell section-tight split" style={{paddingTop:0}}><ContactForm locale={locale}/><aside><div className="panel alt"><div className="meta accent">{ro?"Preferi să vorbești direct?":"Prefer to speak directly?"}</div><h2 style={{fontSize:"clamp(24px,3vw,38px)",lineHeight:1.1,letterSpacing:"-.035em"}}>{ro?"O discuție scurtă, fără prezentare.":"A short conversation, no pitch deck."}</h2><p className="body">{ro?"Ne uităm pe informațiile trimise înainte de call, ca să intrăm direct în partea utilă.":"We review what you send before the call so we can get straight to the useful part."}</p><a className="btn btn-light" href="mailto:salut@bloc.ro?subject=Vreau%20s%C4%83%20discut%C4%83m">{ro?"Scrie direct":"Email us directly"} →</a></div><div className="panel"><div className="meta">{ro?"Contact":"Contact"}</div><p className="body"><a href="mailto:salut@bloc.ro">salut@bloc.ro</a></p><p className="body">Cluj-Napoca · România</p></div><div className="panel"><div className="meta">{ro?"Ce urmează":"What happens next"}</div><p className="body">01 · {ro?"Citim mesajul și contextul.":"We read your message and context."}</p><p className="body">02 · {ro?"Îți răspundem personal.":"We respond personally."}</p><p className="body">03 · {ro?"Stabilim împreună pasul util.":"We agree on the useful next step."}</p></div><p className="body" style={{fontSize:13}}>{ro?"Pentru detalii despre datele personale, citește":"For personal data details, read our"} <Link className="accent" href={`/${locale}/confidentialitate`}>{ro?"politica de confidențialitate":"privacy policy"}</Link>.</p></aside></section></>}
+import { startSteps } from "@/lib/content/common";
+
+const meta = {
+  ro: ["Contact: răspundem în 1 zi lucrătoare | Bloc", "Scrie-ne despre site, SEO, căutare AI, automatizări sau branding. Răspunde direct omul care lucrează la proiect, în maximum o zi lucrătoare."],
+  en: ["Contact: we reply within 1 business day | Bloc", "Message us about websites, SEO, AI search, automation or branding. The person who will work on your project replies within one business day."]
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params; const locale: Locale = isLocale(raw) ? raw : "ro";
+  return pageMetadata(locale, "/contact", meta[locale][0], meta[locale][1]);
+}
+
+export default async function Contact({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: raw } = await params; const locale: Locale = isLocale(raw) ? raw : "ro"; const ro = locale === "ro";
+  return <>
+    <JsonLd locale={locale} nodes={[webPageSchema(locale, "/contact", meta[locale][0], meta[locale][1], "ContactPage"), breadcrumbSchema(locale, [["Contact", "/contact"]])]} />
+    <PageIntro locale={locale} crumbs={[["Contact"]]} title={ro ? "Începe cu o propoziție." : "Start with one sentence."} accent={ro ? "o propoziție" : "one sentence"} text={ro ? "Nu ai nevoie de un brief perfect. Spune-ne ce vinzi și ce nu merge. Durează un minut și e aproape tot ce ne trebuie ca să-ți dăm un răspuns util." : "You do not need a perfect brief. Tell us what you sell and what is not working. It takes a minute and it is almost everything we need to give you a useful answer."} />
+    <section className="shell section-tight split" style={{ paddingTop: 0 }}>
+      <ContactForm locale={locale} />
+      <aside>
+        <div className="panel alt">
+          <div className="meta accent">{ro ? "Ce urmează" : "What happens next"}</div>
+          <ol className="next-list">{startSteps[locale].slice(0, 3).map(([when, t, d]) => <li key={t}><span className="meta">{when}</span><strong>{t}</strong><p className="body">{d}</p></li>)}</ol>
+        </div>
+        <div className="panel">
+          <div className="meta">{ro ? "Direct" : "Directly"}</div>
+          <p className="body"><a className="ink" href={`mailto:${brand.email}`}>{brand.email}</a></p>
+          <p className="body">Cluj-Napoca · {ro ? "România" : "Romania"} · {ro ? "Lucrăm remote cu clienți din RO, UK și UE" : "Working remotely with clients in RO, the UK and the EU"}</p>
+          <p className="body">{ro ? "Luni–Vineri, 9:00–18:00 (EET)" : "Monday–Friday, 9:00–18:00 (EET)"}</p>
+        </div>
+        <div className="panel">
+          <div className="meta">{ro ? "Nu ești gata să vorbești?" : "Not ready to talk yet?"}</div>
+          <p className="body">{ro ? "Rulează auditul gratuit și vezi în 30 de secunde unde pierde site-ul tău clienți." : "Run the free audit and see in 30 seconds where your site loses customers."}</p>
+          <Link className="link-arrow" href={`/${locale}/audit`}>{ro ? "Audit gratuit" : "Free audit"} →</Link>
+        </div>
+      </aside>
+    </section>
+    <section className="shell section-tight"><FounderNote locale={locale} /></section>
+  </>;
+}

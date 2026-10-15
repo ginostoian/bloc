@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const allowedTopics = new Set(["roast", "site", "seo", "ai", "brand", "support"]);
+import { serviceKeys } from "@/lib/content/services";
+
+const allowedTopics = new Set<string>(["roast", ...serviceKeys]);
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const reply = (status: number, error: string) => NextResponse.json({ error }, { status });
 

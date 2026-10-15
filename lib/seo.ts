@@ -25,9 +25,10 @@ export function pageMetadata(locale: Locale, path: string, title: string, descri
     openGraph: {
       title, description, url: urlPath, siteName: "Bloc", type: opts.type || "website", locale: locale === "ro" ? "ro_RO" : "en_GB",
       alternateLocale: locale === "ro" ? "en_GB" : "ro_RO",
+      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Bloc" }],
       ...(opts.publishedTime ? { publishedTime: opts.publishedTime } : {})
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: ["/opengraph-image"] },
     robots: opts.noIndex ? { index: false, follow: true } : { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 }
   };
 }

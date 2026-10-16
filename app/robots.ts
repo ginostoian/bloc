@@ -6,7 +6,7 @@ const aiBots = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: "*", allow: "/", disallow: ["/api/"] }, { userAgent: aiBots, allow: "/", disallow: ["/api/"] }],
+    rules: [{ userAgent: "*", allow: ["/", "/api/audit/card/"], disallow: ["/api/", "/ro/audit/scor/", "/en/audit/scor/"] }, { userAgent: aiBots, allow: ["/", "/api/audit/card/"], disallow: ["/api/", "/ro/audit/scor/", "/en/audit/scor/"] }],
     sitemap: `${siteUrl}/sitemap.xml`,
     host: siteUrl
   };

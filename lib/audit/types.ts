@@ -1,5 +1,5 @@
 export type Status = "pass" | "warn" | "fail";
-export type Category = "performance" | "seo" | "aeo" | "security" | "accessibility" | "trust";
+export type Category = "performance" | "seo" | "aeo" | "security" | "accessibility" | "trust" | "compliance";
 export type Impact = "high" | "medium" | "low";
 export type Localized = string | { ro: string; en: string };
 
@@ -37,6 +37,6 @@ export type AuditResult = {
   checks: Check[];
 };
 
-export const categories: Category[] = ["performance", "seo", "aeo", "security", "accessibility", "trust"];
+export const categories: Category[] = ["performance", "seo", "aeo", "trust", "compliance", "security", "accessibility"];
 
-export const categoryWeights: Record<Category, number> = { performance: 25, seo: 22, aeo: 15, security: 10, accessibility: 10, trust: 18 };
+export const categoryWeights: Record<Category, number> = { performance: 22, seo: 20, aeo: 15, trust: 15, compliance: 12, security: 8, accessibility: 8 };

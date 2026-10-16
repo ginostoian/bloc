@@ -2,7 +2,7 @@
 const nextConfig = {
   typedRoutes: false,
   serverExternalPackages: ["@react-pdf/renderer"],
-  outputFileTracingIncludes: { "/api/audit/report": ["./assets/fonts/**"] },
+  outputFileTracingIncludes: { "/api/audit/report": ["./assets/fonts/**"], "/api/audit/card/[token]": ["./assets/fonts/**"] },
   async headers() {
     return [{
       source: "/:path*",

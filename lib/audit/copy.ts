@@ -12,6 +12,7 @@ export const categoryCopy: Record<Category, Record<Locale, { name: string; blurb
   aeo: { ro: { name: "Căutare AI", blurb: "Dacă ChatGPT, Perplexity și AI Overviews te pot cita." }, en: { name: "AI search", blurb: "Whether ChatGPT, Perplexity and AI Overviews can cite you." } },
   security: { ro: { name: "Securitate", blurb: "Semnalele care protejează vizitatorii și reputația." }, en: { name: "Security", blurb: "Signals that protect visitors and your reputation." } },
   accessibility: { ro: { name: "Accesibilitate", blurb: "Dacă oricine poate folosi site-ul, pe orice dispozitiv." }, en: { name: "Accessibility", blurb: "Whether anyone can use the site, on any device." } },
+  compliance: { ro: { name: "Conformitate legală", blurb: "GDPR, ANPC, termeni și datele firmei. Riscul de amendă." }, en: { name: "Legal compliance", blurb: "GDPR, consumer law, terms and company details. Your fine risk." } },
   trust: { ro: { name: "Încredere & conversie", blurb: "Ce vede omul înainte să te contacteze." }, en: { name: "Trust & conversion", blurb: "What people see before they contact you." } }
 };
 
@@ -208,6 +209,26 @@ export const checkCopy: Record<string, Record<Locale, Entry>> = {
   landmarks: c(
     { t: "Repere de navigare", why: "Elementele header, nav, main și footer permit sărirea rapidă la conținut.", fix: "Folosește elementele semantice HTML5 pentru structura paginii." },
     { t: "Navigation landmarks", why: "header, nav, main and footer elements let people jump straight to content.", fix: "Use semantic HTML5 elements for the page structure." }),
+
+  // Legal compliance
+  termsPage: c(
+    { t: "Termeni și condiții", why: "Pentru vânzarea online către consumatori, termenii (comandă, plată, livrare, retur) sunt obligatorii. Fără ei, orice dispută pornește cu tine în dezavantaj.", fix: "Publică o pagină de termeni și condiții adaptată afacerii tale și leag-o din footer și din procesul de comandă." },
+    { t: "Terms and conditions", why: "When selling online to consumers, terms covering orders, payment, delivery and returns are required. Without them, every dispute starts with you on the back foot.", fix: "Publish terms and conditions tailored to your business and link them from the footer and the checkout." }),
+  anpcSal: c(
+    { t: "Link ANPC SAL (soluționarea alternativă a litigiilor)", why: "Ordinul ANPC 449/2022 cere comercianților care vând online către consumatori să afișeze pictograma SAL cu link către ANPC. Lipsa ei poate atrage amenzi la un control.", fix: "Adaugă în footer pictograma ANPC SAL cu link spre anpc.ro/ce-este-sal, vizibilă pe fiecare pagină." },
+    { t: "ANPC SAL link (Romanian alternative dispute resolution)", why: "ANPC Order 449/2022 requires businesses selling online to Romanian consumers to show the SAL pictogram linking to the consumer authority. Missing it can lead to fines during an inspection.", fix: "Add the ANPC SAL pictogram to your footer, linking to anpc.ro/ce-este-sal, on every page." }),
+  odrOutdated: c(
+    { t: "Link vechi către platforma SOL/ODR", why: "Platforma europeană de soluționare online a litigiilor (SOL/ODR) a fost închisă în iulie 2025. Un link mort spre ea arată că site-ul nu a mai fost verificat juridic.", fix: "Scoate pictograma și linkul SOL și păstrează linkul ANPC SAL. Verifică cu juristul tău textele legale actualizate." },
+    { t: "Outdated link to the EU ODR platform", why: "The EU online dispute resolution (ODR) platform closed in July 2025. A dead link to it signals the site's legal pages have not been reviewed since.", fix: "Remove the ODR badge and link, keep any national ADR links, and have your legal texts reviewed." }),
+  companyDetails: c(
+    { t: "Datele de identificare ale firmei", why: "Legea comerțului electronic cere ca site-ul să afișeze denumirea, CUI-ul, numărul de la Registrul Comerțului și adresa. Sunt și un semnal puternic de încredere.", fix: "Afișează în footer denumirea firmei, CUI, Nr. Reg. Com. și sediul social." },
+    { t: "Company identification details", why: "E-commerce law in the EU and UK requires a site to show the company name, registration number, VAT number where applicable and registered address. They are also a strong trust signal.", fix: "Show your legal company name, registration and VAT numbers and registered office in the footer." }),
+  returnsPolicy: c(
+    { t: "Politica de retur (dreptul de retragere de 14 zile)", why: "Consumatorii au dreptul să returneze produsele în 14 zile. Dacă nu îi informezi clar, termenul se poate prelungi până la 12 luni.", fix: "Publică o pagină de retur cu termenul de 14 zile, pașii și formularul de retragere și leag-o din footer și din pagina de produs." },
+    { t: "Returns policy (14-day right of withdrawal)", why: "Consumers have a 14-day right to cancel. If you do not inform them clearly, that period can extend to 12 months.", fix: "Publish a returns page with the 14-day period, the steps and a withdrawal form, linked from the footer and product pages." }),
+  deliveryInfo: c(
+    { t: "Informații despre livrare", why: "Costul și termenul de livrare trebuie comunicate înainte de comandă. Surprizele la checkout sunt principalul motiv al coșurilor abandonate.", fix: "Adaugă o pagină de livrare cu costuri, termene și curieri și afișează pragul de livrare gratuită pe pagina de produs." },
+    { t: "Delivery information", why: "Delivery costs and times must be shown before ordering. Surprises at checkout are the top reason for abandoned carts.", fix: "Add a delivery page with costs, times and carriers, and show any free-delivery threshold on product pages." }),
 
   // Trust
   contactVisible: c(
